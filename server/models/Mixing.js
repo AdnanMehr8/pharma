@@ -1,0 +1,147 @@
+const mongoose = require("../config/dbConfig");
+
+const manufacturingRecordSchema = new mongoose.Schema({
+  sievingStartedAt: String,
+  sievingCompletedOn: String,
+  mixingStartedAt: String,
+  mixingCompletedOn: String,
+  sampleTakenQty: String,
+  performedByOperator: String,
+  checkedByPO: String,
+  checkedByQAI: String,
+  target: String,
+});
+
+const mixingSchema = new mongoose.Schema({
+  precautions: {
+    area: String,
+    sop1: String,
+    sop2: String,
+    section: String,
+    specificArea: String,
+    sectionInCharge: String,
+    precautionsRead: String,
+  },
+  lineClearance: {
+    equipment: String,
+    equipmentId: String,
+    previousProduct: String,
+    batchNo: String,
+    cleanedBy: String,
+    checkedBy: String,
+    verifiedBy: String,
+  },
+  batchInfo: {
+    productName: String,
+    batchNo: String,
+    batchSize: String,
+    noOfPacks: String,
+    noOfTablets: String,
+    packsSize: String,
+    expiryDate: String,
+  },
+  batchRecord: {
+    department: String,
+    currentProduct: String,
+    currentProductBatchNo: String,
+    lineClearance: String,
+    section: String,
+    date: String,
+    previousProduct: String,
+    previousProductBatchNo: String,
+    signature: String,
+  },
+  checkboxes: {
+    documents: { type: String, default: "notApplicable" },
+    rawMaterial: { type: String, default: "notApplicable" },
+    remnantOfPreviousProduct: { type: String, default: "notApplicable" },
+    area: { type: String, default: "notApplicable" },
+    mixer: { type: String, default: "notApplicable" },
+    otherEquipments: { type: String, default: "notApplicable" },
+    scoops: { type: String, default: "notApplicable" },
+    pallets: { type: String, default: "notApplicable" },
+  },
+  tempAndHumidity: {
+    temperature: String,
+    humidity: String,
+  },
+  remarks: String,
+  authorization: {
+    authorizedForUse: String,
+    dateAndTime: String,
+  },
+  manufacturingRecord: [manufacturingRecordSchema],
+  weightOfGranules: {
+    containers: [
+      {
+        containerNo: String,
+        grossWeight: String,
+        tareWeight: String,
+        netWeight: String,
+      },
+    ],
+    total: {
+      grossWeight: Number,
+      tareWeight: Number,
+      netWeight: Number,
+    },
+    weighedBy: String,
+    receivedBy: String,
+  },
+  granulationYield: {
+    labels: [
+      {
+        sNo: String,
+        description: String,
+        weight: String,
+      },
+    ],
+    performedBy: String,
+    // theoreticalYield: String,
+    // actualYield: String,
+    // qaSample: String,
+    // lossesDuringProcess: String,
+    // rejected: String,
+    // performedBy: String,
+    // granulationYieldPercentage: String,
+  },
+  requestForAnalysis: {
+    batchInfo: {
+      product: String,
+      qcNumber: String,
+      section: String,
+      stage: String,
+      batchNumber: String,
+      mfgDate: String,
+      expDate: String,
+      date: String,
+      time: String,
+      packSize: String,
+      sampleQuantity: String,
+      weightPerUnit: String,
+      bSize: String,
+    },
+    qa: {
+      sampleType: String,
+      releaseRequiredFor: String,
+      signature: String,
+      collectedBy: String,
+      dateCollected: String,
+      timeCollected: String,
+      quantityOfSample: String,
+      containerNumbers: String,
+    },
+    qaObservations: [
+      {
+        parameter: String,
+        status: { type: String, default: 'OK' },
+        remarks: String,
+      },
+    ],
+    qaOfficer: String,
+    qaManager: String,
+  },
+  machineUsed: String,
+});
+
+module.exports = mongoose.model("Mixing", mixingSchema);
