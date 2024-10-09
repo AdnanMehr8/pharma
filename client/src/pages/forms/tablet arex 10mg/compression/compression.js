@@ -612,14 +612,14 @@ const Compression = () => {
         break;
       
         case 3: 
-          if (!requestForAnalysis.batchInfo.product || !requestForAnalysis.batchInfo.qcNumber || !requestForAnalysis.batchInfo.section || !requestForAnalysis.batchInfo.stage || !requestForAnalysis.batchInfo.batchNumber || !requestForAnalysis.batchInfo.mfgDate || !requestForAnalysis.batchInfo.expDate || !requestForAnalysis.batchInfo.date || !requestForAnalysis.batchInfo.time || !requestForAnalysis.batchInfo.packSize || !requestForAnalysis.batchInfo.sampleQuantity || !requestForAnalysis.batchInfo.weightPerUnit || !requestForAnalysis.batchInfo.bSize || !requestForAnalysis.qa.sampleType || !requestForAnalysis.qa.releaseRequiredFor || !requestForAnalysis.qa.collectedBy || !requestForAnalysis.qa.dateCollected || !requestForAnalysis.qa.timeCollected || !requestForAnalysis.qa.quantityOfSample || !requestForAnalysis.qa.containerNumbers || !requestForAnalysis.qaObservations.every(obs => obs.parameter && obs.status) || !requestForAnalysis.qaOfficer || !requestForAnalysis.qaManager) {
+          if (!requestForAnalysis.batchInfo.product || !requestForAnalysis.batchInfo.qcNumber || !requestForAnalysis.batchInfo.section || !requestForAnalysis.batchInfo.stage || !requestForAnalysis.batchInfo.batchNumber || !requestForAnalysis.batchInfo.mfgDate || !requestForAnalysis.batchInfo.expDate || !requestForAnalysis.batchInfo.date || !requestForAnalysis.batchInfo.time || !requestForAnalysis.batchInfo.packSize || !requestForAnalysis.batchInfo.sampleQuantity || !requestForAnalysis.batchInfo.weightPerUnit || !requestForAnalysis.batchInfo.bSize || !requestForAnalysis.qa.sampleType || !requestForAnalysis.qa.releaseRequiredFor || !requestForAnalysis.qa.collectedBy || !requestForAnalysis.qa.dateCollected || !requestForAnalysis.qa.timeCollected || !requestForAnalysis.qa.quantityOfSample || !requestForAnalysis.qa.containerNumbers || !requestForAnalysis.qaObservations.every(obs => obs.parameter && obs.status && obs.remarks) || !requestForAnalysis.qaOfficer || !requestForAnalysis.qaManager) {
             alert('Please fill out all required fields on this page before proceeding.');
             return false;
           }
         break;
       
       case 4: 
-        if (!compressionSpecifications.parameters.every(param => param.specification && param.results) || !compressionSpecifications.checkedByQA) {
+        if (!compressionSpecifications.parameters.every(param => param.parameters && param.specification && param.results) || !compressionSpecifications.checkedByQA) {
           alert('Please fill out all required fields on this page before proceeding.');
           return false;
         }
@@ -640,22 +640,27 @@ const Compression = () => {
         }
         break;
       
-      case 7: 
-        if (!weightOfCompressedTablets.containers.every(container =>  container.grossWeight && container.tareWeight && container.netWeight) || !weightOfCompressedTablets.total.grossWeight || !weightOfCompressedTablets.total.tareWeight || !weightOfCompressedTablets.total.netWeight || !weightOfCompressedTablets.weighedBy || !weightOfCompressedTablets.receivedBy) {
-          alert('Please fill out all required fields on this page before proceeding.');
-          return false;
-        }
-        break;
+        case 7: 
+            if (
+              // Check for weightOfCompressedTablets
+              !weightOfCompressedTablets.containers.every(container => container.grossWeight && container.tareWeight && container.netWeight) || 
+              !weightOfCompressedTablets.total.grossWeight || 
+              !weightOfCompressedTablets.total.tareWeight || 
+              !weightOfCompressedTablets.total.netWeight || 
+              !weightOfCompressedTablets.weighedBy || 
+              !weightOfCompressedTablets.receivedBy || 
+              // Check for compressionYield
+              !compressionYield.labels.every(label => label.description && label.yield) || 
+              !compressionYield.performedBy
+            ) {
+              alert('Please fill out all required fields on this page before proceeding.');
+              return false;
+            }
+            break;
+        
       
-      case 8: 
-        if (!compressionYield.labels.every(label => label.yield) || !compressionYield.performedBy) {
-          alert('Please fill out all required fields on this page before proceeding.');
-          return false;
-        }
-        break;
-      
-        case 9: 
-          if (!requestForAnalysisEnd.batchInfo.product || !requestForAnalysisEnd.batchInfo.qcNumber || !requestForAnalysisEnd.batchInfo.section || !requestForAnalysisEnd.batchInfo.stage || !requestForAnalysisEnd.batchInfo.batchNumber || !requestForAnalysisEnd.batchInfo.mfgDate || !requestForAnalysisEnd.batchInfo.expDate || !requestForAnalysisEnd.batchInfo.date || !requestForAnalysisEnd.batchInfo.time || !requestForAnalysisEnd.batchInfo.packSize || !requestForAnalysisEnd.batchInfo.sampleQuantity || !requestForAnalysisEnd.batchInfo.weightPerUnit || !requestForAnalysisEnd.batchInfo.bSize || !requestForAnalysisEnd.qa.sampleType || !requestForAnalysisEnd.qa.releaseRequiredFor || !requestForAnalysisEnd.qa.collectedBy || !requestForAnalysisEnd.qa.dateCollected || !requestForAnalysisEnd.qa.timeCollected || !requestForAnalysisEnd.qa.quantityOfSample || !requestForAnalysisEnd.qa.containerNumbers || !requestForAnalysisEnd.qaObservations.every(obs => obs.parameter && obs.status) || !requestForAnalysisEnd.qaOfficer || !requestForAnalysisEnd.qaManager) {
+        case 8: 
+          if (!requestForAnalysisEnd.batchInfo.product || !requestForAnalysisEnd.batchInfo.qcNumber || !requestForAnalysisEnd.batchInfo.section || !requestForAnalysisEnd.batchInfo.stage || !requestForAnalysisEnd.batchInfo.batchNumber || !requestForAnalysisEnd.batchInfo.mfgDate || !requestForAnalysisEnd.batchInfo.expDate || !requestForAnalysisEnd.batchInfo.date || !requestForAnalysisEnd.batchInfo.time || !requestForAnalysisEnd.batchInfo.packSize || !requestForAnalysisEnd.batchInfo.sampleQuantity || !requestForAnalysisEnd.batchInfo.weightPerUnit || !requestForAnalysisEnd.batchInfo.bSize || !requestForAnalysisEnd.qa.sampleType || !requestForAnalysisEnd.qa.releaseRequiredFor || !requestForAnalysisEnd.qa.collectedBy || !requestForAnalysisEnd.qa.dateCollected || !requestForAnalysisEnd.qa.timeCollected || !requestForAnalysisEnd.qa.quantityOfSample || !requestForAnalysisEnd.qa.containerNumbers || !requestForAnalysisEnd.qaObservations.every(obs => obs.parameter && obs.status && obs.remarks) || !requestForAnalysisEnd.qaOfficer || !requestForAnalysisEnd.qaManager) {
             alert('Please fill out all required fields on this page before proceeding.');
             return false;
           }
@@ -717,6 +722,7 @@ const Compression = () => {
         const currentProcessIndex = processes.indexOf('compression'); 
         if (currentProcessIndex !== -1 && currentProcessIndex < processes.length - 1) {
           const nextProcess = processes[currentProcessIndex + 1];
+        localStorage.removeItem('activeTabCompression');
           navigate(`/${nextProcess}`);
         } else {
           console.log("No next process available.");
@@ -734,15 +740,15 @@ const Compression = () => {
 
       <Box sx={{ width: '100%', borderBottom: 1, borderColor: 'divider' }}>
         <Tabs value={tabValue} onChange={handleChangeTab} aria-label="compression tabs">
-          <Tab label="Page 9" disabled={!tabStatus[0]} />
-          <Tab label="Page 10" disabled={!tabStatus[1]} />
-          <Tab label="Page 11" disabled={!tabStatus[2]} />
-          <Tab label="Page 12" disabled={!tabStatus[3]} />
-          <Tab label="Page 13" disabled={!tabStatus[4]} />
-          <Tab label="Page 14" disabled={!tabStatus[5]} />
-          <Tab label="Page 15" disabled={!tabStatus[6]} />
-          <Tab label="Page 17" disabled={!tabStatus[7]} />
-          <Tab label="Page 18" disabled={!tabStatus[8]} />
+          <Tab label="Precautions" disabled={!tabStatus[0]} />
+          <Tab label="Line Clearance" disabled={!tabStatus[1]} />
+          <Tab label="Compression Process" disabled={!tabStatus[2]} />
+          <Tab label="Request for analysis" disabled={!tabStatus[3]} />
+          <Tab label="Compression specifications" disabled={!tabStatus[4]} />
+          <Tab label="Follow up" disabled={!tabStatus[5]} />
+          <Tab label="Check-sheet" disabled={!tabStatus[6]} />
+          <Tab label="Weight & Yield" disabled={!tabStatus[7]} />
+          <Tab label="Request for analysis" disabled={!tabStatus[8]} />
         </Tabs>
       </Box>
 

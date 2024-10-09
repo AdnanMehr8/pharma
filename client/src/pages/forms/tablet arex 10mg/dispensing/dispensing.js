@@ -501,6 +501,8 @@ const Dispensing = () => {
         const currentProcessIndex = processes.indexOf('dispensing');
         if (currentProcessIndex !== -1 && currentProcessIndex < processes.length - 1) {
           const nextProcess = processes[currentProcessIndex + 1];
+          // Remove 'activeTabDispensing' from local storage before navigating
+        localStorage.removeItem('activeTabDispensing');
           navigate(`/${nextProcess}`);
         } else {
           console.log("No next process available.");
@@ -518,7 +520,7 @@ const Dispensing = () => {
 
       <Box sx={{ width: '100%', borderBottom: 1, borderColor: 'divider' }}>
         <Tabs value={tabValue} onChange={handleChangeTab} aria-label="dispensing tabs">
-          <Tab label="Batch Manufacturing Form - Page 1" disabled={!tabStatus[0]} />
+          <Tab label="Line Clearance" disabled={!tabStatus[0]} />
           <Tab label="Weighing Record (Raw Material)" disabled={!tabStatus[1]} />
           <Tab label="Weighing Record (Coating Material)" disabled={!tabStatus[2]} />
         </Tabs>

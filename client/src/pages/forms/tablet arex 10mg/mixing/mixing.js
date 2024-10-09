@@ -209,7 +209,13 @@ const Mixing = () => {
     switch (tabValue) {
       case 0: 
         if (
+          !precautions.sop1 || 
+          !precautions.sop2 || 
+          !precautions.section || 
+          !precautions.specificArea || 
           !precautions.precautionsRead || 
+          !lineClearance.equipment || 
+          // !lineClearance.euipmentId || 
           !lineClearance.previousProduct || 
           !lineClearance.batchNo || 
           !lineClearance.cleanedBy || 
@@ -266,7 +272,7 @@ const Mixing = () => {
           !weightOfGranules?.total?.netWeight || 
           !weightOfGranules?.weighedBy || 
           !weightOfGranules?.receivedBy ||
-          !granulationYield.labels.every(label => label.weight) || 
+          !granulationYield.labels.every(label => label.description && label.weight) || 
           !granulationYield.performedBy
         ) {
           alert('Please fill out all required fields on this page before proceeding.');
@@ -296,7 +302,7 @@ const Mixing = () => {
           !requestForAnalysis.qa.timeCollected || 
           !requestForAnalysis.qa.quantityOfSample || 
           !requestForAnalysis.qa.containerNumbers || 
-          !requestForAnalysis.qaObservations.every(obs => obs.status) || 
+          !requestForAnalysis.qaObservations.every(obs => obs.parameter && obs.status && obs.remarks) || 
           !requestForAnalysis.qaOfficer || 
           !requestForAnalysis.qaManager
         ) {
@@ -362,6 +368,7 @@ const Mixing = () => {
         const currentProcessIndex = processes.indexOf('mixing');
         if (currentProcessIndex !== -1 && currentProcessIndex < processes.length - 1) {
           const nextProcess = processes[currentProcessIndex + 1];
+        localStorage.removeItem('activeTabMixing');
           navigate(`/${nextProcess}`);
         } else {
           console.log("No next process available.");
@@ -379,11 +386,11 @@ const Mixing = () => {
 
       <Box sx={{ width: '100%', borderBottom: 1, borderColor: 'divider' }}>
         <Tabs value={tabValue} onChange={handleChangeTab} aria-label="mixing tabs">
-          <Tab label="Batch Manufacturing Form - Page 4" disabled={!tabStatus[0]} />
-          <Tab label="Batch Manufacturing Form - Page 5" disabled={!tabStatus[1]} />
-          <Tab label="Batch Manufacturing Form - Page 6" disabled={!tabStatus[2]} />
-          <Tab label="Batch Manufacturing Form - Page 7" disabled={!tabStatus[3]} />
-          <Tab label="Batch Manufacturing Form - Page 8" disabled={!tabStatus[4]} />
+          <Tab label="Precautions" disabled={!tabStatus[0]} />
+          <Tab label="Line Clearance" disabled={!tabStatus[1]} />
+          <Tab label="Manufacturing Process" disabled={!tabStatus[2]} />
+          <Tab label="Weight of granules/bulk & Yield" disabled={!tabStatus[3]} />
+          <Tab label="Request for analysis" disabled={!tabStatus[4]} />
         </Tabs>
       </Box>
 

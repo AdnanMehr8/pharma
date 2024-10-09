@@ -513,7 +513,7 @@ const BatchManufacturingFormPage11 = () => {
             <td>
             <Input 
                   type="text" 
-                  value={compressionRecord.verification[2]?.target || "     Check Embossing of punches:<br /> Upper Punch - DID Embossed<br /> Lower Punch - Plain"}
+                  value={compressionRecord.verification[2]?.target || "Check Embossing of punches:<br /> Upper Punch - DID Embossed<br /> Lower Punch - Plain"}
                   onChange={(e) => handleVerificationChange(2, 'target', e.target.value)}
                   fullWidth
                   multiline

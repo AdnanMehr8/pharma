@@ -87,7 +87,7 @@ const initialState = {
     checkedByQA: "",
   },
   followUp: {
-    labels: [
+   labels: Array(10).fill([
       {
         date: "",
         time: "",
@@ -98,7 +98,7 @@ const initialState = {
         friability: "",
         performedBy: "",
       },
-    ],
+    ]),
     zP: false,
     others: false,
     checkedByQA: "",

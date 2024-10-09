@@ -244,8 +244,8 @@ const Coating = () => {
   
       case 2: // Combined case for coating solution preparation and coating procedure
         if (
-          !coatingSolutionPreparation.every(prep => prep.activityCompliance && prep.performedByOperator && prep.checkedByPO && prep.checkedByQAI) ||
-          !coatingProcedure.every(coatingProc => coatingProc.activityCompliance && coatingProc.performedByOperator && coatingProc.checkedByPO && coatingProc.checkedByQAI)
+          !coatingSolutionPreparation.every(prep => prep.instructions && prep.activityCompliance && prep.performedByOperator && prep.checkedByPO && prep.checkedByQAI) ||
+          !coatingProcedure.every(coatingProc => coatingProc.instructions && coatingProc.activityCompliance && coatingProc.performedByOperator && coatingProc.checkedByPO && coatingProc.checkedByQAI)
         ) {
           alert('Please fill out all required fields on this page before proceeding.');
           return false;
@@ -260,7 +260,7 @@ const Coating = () => {
           !weightOfCoatedTablets?.total?.netWeight || 
           !weightOfCoatedTablets?.weighedBy || 
           !weightOfCoatedTablets?.receivedBy ||
-          !batchManufacturingYield.labels.every(label => label.yield) || 
+          !batchManufacturingYield.labels.every(label => label.description && label.yield) || 
           !batchManufacturingYield.performedBy
         ) {
           alert('Please fill out all required fields on this page before proceeding.');
@@ -290,7 +290,7 @@ const Coating = () => {
           !requestForAnalysis.qa.timeCollected || 
           !requestForAnalysis.qa.quantityOfSample || 
           !requestForAnalysis.qa.containerNumbers || 
-          !requestForAnalysis.qaObservations.every(obs => obs.parameter && obs.status) || 
+          !requestForAnalysis.qaObservations.every(obs => obs.parameter && obs.status && obs.remarks) || 
           !requestForAnalysis.qaOfficer || 
           !requestForAnalysis.qaManager
         ) {
@@ -359,6 +359,7 @@ const Coating = () => {
         const currentProcessIndex = processes.indexOf('coating');
         if (currentProcessIndex !== -1 && currentProcessIndex < processes.length - 1) {
           const nextProcess = processes[currentProcessIndex + 1];
+        localStorage.removeItem('activeTabCoating');
           navigate(`/${nextProcess}`);
         } else {
           console.log('No next process available.');
@@ -376,11 +377,11 @@ const Coating = () => {
 
       <Box sx={{ width: '100%', borderBottom: 1, borderColor: 'divider' }}>
         <Tabs value={tabValue} onChange={handleChangeTab} aria-label="coating tabs">
-          <Tab label="Batch Manufacturing Form - Page 19" disabled={!tabStatus[0]} />
-          <Tab label="Page 20" disabled={!tabStatus[1]} />
-          <Tab label="Page 21" disabled={!tabStatus[2]} />
-          <Tab label="Page 22" disabled={!tabStatus[3]} />
-          <Tab label="Page 23" disabled={!tabStatus[4]} />
+          <Tab label="Precautions" disabled={!tabStatus[0]} />
+          <Tab label="Line clearance" disabled={!tabStatus[1]} />
+          <Tab label="Solution Preparation & Procedure" disabled={!tabStatus[2]} />
+          <Tab label="weight & Yield" disabled={!tabStatus[3]} />
+          <Tab label="Request for analysis" disabled={!tabStatus[4]} />
         </Tabs>
       </Box>
 

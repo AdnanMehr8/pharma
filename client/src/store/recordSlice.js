@@ -46,9 +46,9 @@ const initialState = {
             authorizedForUse: '',
             dateAndTime: null,
         },
-        weighingRecordRaw: [],
+        weighingRecordRaw: Array(10).fill([]),
     checkRecordRaw: [],
-    weighingRecordCoating: [],
+    weighingRecordCoating: Array(10).fill([]),
     checkRecordCoating: [],
     
 };

@@ -48,6 +48,7 @@ import Coating from './pages/forms/tablet arex 10mg/coating/coating'
 import TabsWrappedLabel, { CustomTabPanel } from './pages/forms/tablet arex 10mg/FullProcess'
 import EquipmentTable from './components/Machines'
 import ProductList from './components/Products'
+import { Box, CircularProgress } from '@mui/material'
 
 
 
@@ -67,7 +68,11 @@ const App = () => {
       dispatch(loadUserFromStorage());
   }, [dispatch]);
 
-  return loading ? 'loading' : (
+  return loading ?
+    <Box sx={{ display: 'flex' }}>
+  <CircularProgress />
+    </Box>
+    : (
   // return (
     <div>
     <Header></Header>

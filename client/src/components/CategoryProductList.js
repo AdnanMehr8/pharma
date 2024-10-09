@@ -190,6 +190,7 @@ import { useDispatch } from 'react-redux';
 import { setRecord } from '../store/recordSlice';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { Box, CircularProgress } from '@mui/material';
 
 const categories = [
   { id: 1, name: 'Injections' },
@@ -262,7 +263,21 @@ const CategoryProductList = () => {
     navigate('/form-header');
   };
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) {
+    return (
+      <Box 
+        sx={{ 
+          display: 'flex', 
+          justifyContent: 'center', 
+          alignItems: 'center', 
+          height: '100vh'  // Full viewport height to center vertically
+        }}
+      >
+        <CircularProgress size="3rem"/>
+      </Box>
+    );
+  }
+  
   if (error) return <p>{error}</p>;
 
   return (

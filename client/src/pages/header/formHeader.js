@@ -358,6 +358,8 @@ const FormHeader = () => {
                                 onChange={handleInputChange}
                                 type='date'
                                 fullWidth
+                                InputLabelProps={{ shrink: true }}
+
                             />
                         </Grid>
 

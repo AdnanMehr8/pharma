@@ -1,12 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   precautions: {
-    area: "",
     sop1: "",
     sop2: "",
     section: "",
     specificArea: "",
-    sectionInCharge: "",
     precautionsRead: "",
   },
   lineClearance: {

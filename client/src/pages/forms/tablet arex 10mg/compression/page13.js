@@ -62,7 +62,7 @@ export default function BatchManufacturingFormPage13() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {['Appearance of Tablet', 'Color', 'Average weight', 'Tablet Length', 'Tablet Width', 'Tablet Thickness', 'Hardness', 'Disintegration Time', 'Friability'].map((param, index) => (
+              {['', '', '', ' ', ' ', ' ', '', ' ', ''].map((param, index) => (
                 <TableRow key={index}>
                   <TableCell>
                     <TextField
