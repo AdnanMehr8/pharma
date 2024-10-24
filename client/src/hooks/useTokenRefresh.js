@@ -10,7 +10,7 @@ const useTokenRefresh = () => {
             } catch (error) {
                 console.error("Token refresh failed: ", error);
             }
-        }, 2 * 60 * 1000); // Refresh every 25 minutes
+        }, 25 * 60 * 1000); // Refresh every 25 minutes
 
         return () => clearInterval(interval);
     }, []);

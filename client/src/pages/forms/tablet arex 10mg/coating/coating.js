@@ -195,8 +195,9 @@ const Coating = () => {
       precautions,
       lineClearance,
       batchRecord,
+      checkboxes,
       tempAndHumidity,
-      remarks,
+      coatingRemarks,
       authorization,
       coatingSolutionPreparation,
       coatingProcedure,
@@ -209,11 +210,12 @@ const Coating = () => {
       case 0: 
         if (
           !precautions.precautionsRead || 
-          !lineClearance.previousProduct || 
-          !lineClearance.batchNo || 
-          !lineClearance.cleanedBy || 
-          !lineClearance.checkedBy || 
-          !lineClearance.verifiedBy
+          !lineClearance.every(line => line.equipment && line.equipmentId && line.previousProduct && line.batchNo && line.cleanedBy && line.checkedBy && line.verifiedBy && line.equipmentCapacity && line.clDate && line.chDate && line.vDate)
+          // !lineClearance.previousProduct || 
+          // !lineClearance.batchNo || 
+          // !lineClearance.cleanedBy || 
+          // !lineClearance.checkedBy || 
+          // !lineClearance.verifiedBy
         ) {
           alert('Please fill out all required fields on this page before proceeding.');
           return false;
@@ -230,10 +232,18 @@ const Coating = () => {
           !batchRecord.date || 
           !batchRecord.previousProduct || 
           !batchRecord.previousProductBatchNo || 
-          !batchRecord.signature || 
+          !batchRecord.signature ||
+          !checkboxes.documents ||
+          !checkboxes.tabletsCoatingMaterial ||
+          !checkboxes.remnantOfPreviousProduct ||
+          !checkboxes.area ||
+          !checkboxes.coatingMachine ||
+          !checkboxes.containerOrDrums ||
+          !checkboxes.scoops ||
+          !checkboxes.pallets ||
           !tempAndHumidity.temperature || 
           !tempAndHumidity.humidity || 
-          !remarks || 
+          !coatingRemarks || 
           !authorization.authorizedForUse || 
           !authorization.dateAndTime
         ) {
@@ -244,8 +254,8 @@ const Coating = () => {
   
       case 2: // Combined case for coating solution preparation and coating procedure
         if (
-          !coatingSolutionPreparation.every(prep => prep.instructions && prep.activityCompliance && prep.performedByOperator && prep.checkedByPO && prep.checkedByQAI) ||
-          !coatingProcedure.every(coatingProc => coatingProc.instructions && coatingProc.activityCompliance && coatingProc.performedByOperator && coatingProc.checkedByPO && coatingProc.checkedByQAI)
+          !coatingSolutionPreparation.every(prep => prep.instructions && prep.activityCompliance && prep.performedByOperator && prep.checkedByPO && prep.checkedByQAI && prep.pboDate && prep.checkedByPODate && prep.checkedByQAIDate) ||
+          !coatingProcedure.every(coatingProc => coatingProc.instructions && coatingProc.activityCompliance && coatingProc.performedByOperator && coatingProc.checkedByPO && coatingProc.checkedByQAI && coatingProc.pboDate && coatingProc.checkedByPODate && coatingProc.checkedByQAIDate)
         ) {
           alert('Please fill out all required fields on this page before proceeding.');
           return false;
@@ -261,7 +271,8 @@ const Coating = () => {
           !weightOfCoatedTablets?.weighedBy || 
           !weightOfCoatedTablets?.receivedBy ||
           !batchManufacturingYield.labels.every(label => label.description && label.yield) || 
-          !batchManufacturingYield.performedBy
+          !batchManufacturingYield.performedBy ||
+          !batchManufacturingYield.performedByDate
         ) {
           alert('Please fill out all required fields on this page before proceeding.');
           return false;
@@ -287,10 +298,10 @@ const Coating = () => {
           !requestForAnalysis.qa.releaseRequiredFor || 
           !requestForAnalysis.qa.collectedBy || 
           !requestForAnalysis.qa.dateCollected || 
-          !requestForAnalysis.qa.timeCollected || 
+          
           !requestForAnalysis.qa.quantityOfSample || 
           !requestForAnalysis.qa.containerNumbers || 
-          !requestForAnalysis.qaObservations.every(obs => obs.parameter && obs.status && obs.remarks) || 
+          !requestForAnalysis.qaObservations.every(obs => obs.parameter && obs.statusCoating && obs.remarks) || 
           !requestForAnalysis.qaOfficer || 
           !requestForAnalysis.qaManager
         ) {
@@ -350,8 +361,8 @@ const Coating = () => {
       console.log('Batch created:', data);
 
       if (data && data._id) {
-        localStorage.setItem('batchId', data._id);
-        console.log('Batch ID stored in localStorage:', data._id);
+        localStorage.setItem('coatingId', data._id);
+        console.log('Coating ID stored in localStorage:', data._id);
       }
 
       const processes = JSON.parse(localStorage.getItem('processes'));
@@ -428,15 +439,15 @@ const Coating = () => {
         )}
       </div>
 
-      <div className="mt-6 flex justify-between">
+      <div className="mt-6" style={{ display: 'flex', justifyContent: 'space-between' }}>
         {tabValue > 0 && (
-          <Button variant="contained" color="primary" onClick={handleBackTab}>
+          <Button variant="contained" color="primary" onClick={handleBackTab} className='mt-3'>
             Back
           </Button>
         )}
 
         {tabValue < 4 && (
-          <Button variant="contained" color="primary" onClick={handleNextTab}>
+          <Button variant="contained" color="primary" onClick={handleNextTab} className='mt-3'>
             Next
           </Button>
         )}

@@ -10,15 +10,19 @@ const initialState = {
     sectionInCharge: "",
     precautionsRead: "",
   },
-  lineClearance: {
+  lineClearance: Array(1).fill({
     equipment: "",
     equipmentId: "",
+    equipmentCapacity: "",
     previousProduct: "",
     batchNo: "",
     cleanedBy: "",
+    clDate: '',
     checkedBy: "",
+    chDate: '',
     verifiedBy: "",
-  },
+    vDate: '',
+  }),
   batchInfo: {
     productName: "",
     batchNo: "",
@@ -53,7 +57,7 @@ const initialState = {
     temperature: "",
     humidity: "",
   },
-  remarks: "",
+  compressionRemarks: "",
   authorization: {
     authorizedForUse: "",
     dateAndTime: null,
@@ -73,6 +77,9 @@ const initialState = {
         checkedByPO: "",
         checkedByQAI: "",
         target: "",
+        pboDate: "",
+        checkedByPODate: "",
+        checkedByQAIDate: "",
       }
     ]
   },
@@ -85,24 +92,28 @@ const initialState = {
       },
     ],
     checkedByQA: "",
+    checkedByQADate: "",
+
   },
+  // 
   followUp: {
-   labels: Array(10).fill([
-      {
-        date: "",
-        time: "",
-        avgWeight: "",
-        thickness: "",
-        hardness: "",
-        disintigrationTime: "",
-        friability: "",
-        performedBy: "",
-      },
-    ]),
+    labels: Array(10).fill().map(() => ({
+      date: "",
+      time: "",
+      avgWeight: "",
+      thickness: "",
+      hardness: "",
+      disintigrationTime: "",
+      friability: "",
+      performedBy: "",
+    })),
     zP: false,
     others: false,
     checkedByQA: "",
+    checkedByQADate: "",
+
   },
+  
   requestForAnalysis: {
     batchInfo: {
       product: "",
@@ -130,24 +141,22 @@ const initialState = {
     },
     qaObservations: Array(8).fill({
       parameter: "",
-      status: "Ok",
+      statusCompression: "",
       remarks: "",
     }),
     qaOfficer: "",
     qaManager: "",
   },
   checkSheet: {
-    labels: [
-      {
-        dateAndTime: "",
-        weights: Array(10).fill(""),
-        avgWeightOf10Tabs: "",
-        temp: "",
-        rH: "",
-        disintigrationTime: "",
-        PoOrQoa: "",
-      },
-    ],
+    labels: Array(10).fill().map(() => ({
+      dateAndTime: "",
+      weights: Array(10).fill(""),
+      avgWeightOf10Tabs: "",
+      temp: "",
+      rH: "",
+      disintigrationTime: "",
+      PoOrQoa: "",
+    })),
     upperLimit: "",
     targetWeight: "",
     lowerLimit: "",
@@ -179,6 +188,8 @@ const initialState = {
       },
     ),
     performedBy: '',
+    performedByDate: '',
+
   },
   requestForAnalysisEnd: {
     batchInfo: {
@@ -207,7 +218,7 @@ const initialState = {
     },
     qaObservations: Array(8).fill({
       parameter: "",
-      status: "Ok",
+      statusCompressionEnd: "",
       remarks: "",
     }),
     qaOfficer: "",
@@ -228,7 +239,7 @@ export const compressionSlice = createSlice({
         batchRecord,
         checkboxes,
         tempAndHumidity,
-        remarks,
+        compressionRemarks,
         authorization,
         compressionRecord,
         compressionSpecifications,
@@ -241,12 +252,13 @@ export const compressionSlice = createSlice({
       } = action.payload;
 
       state.precautions = { ...state.precautions, ...precautions };
-      state.lineClearance = { ...state.lineClearance, ...lineClearance };
+      // state.lineClearance = { ...state.lineClearance, ...lineClearance };
+      state.lineClearance = action.payload.lineClearance || state.lineClearance;
       state.batchInfo = { ...state.batchInfo, ...batchInfo };
       state.batchRecord = { ...state.batchRecord, ...batchRecord };
       state.checkboxes = { ...state.checkboxes, ...checkboxes };
       state.tempAndHumidity = { ...state.tempAndHumidity, ...tempAndHumidity };
-      state.remarks = remarks;
+      state.compressionRemarks = compressionRemarks;
       state.authorization = { ...state.authorization, ...authorization };
       // state.compressionRecord = action.payload.compressionRecord || state.compressionRecord;
       state.compressionRecord = {...state.compressionRecord, ...compressionRecord};

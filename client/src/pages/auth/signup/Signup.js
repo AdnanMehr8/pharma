@@ -28,10 +28,10 @@ const Signup = () => {
         try {
             const response = await signup(formData);
             if (response.status === 201) { // Check for successful creation
-                navigate('/login');
             } else {
-                setError(response.data.message || 'Signup failed. Please try again.');
+                setError(response.message || 'Signup failed. Please try again.');
             }
+            navigate('/login');
         } catch (error) {
             setError(error.message || 'An unexpected error occurred. Please try again.');
         } finally {
@@ -86,7 +86,7 @@ const Signup = () => {
                         type='text'
                         name='role'
                         placeholder='Enter Role'
-                        value={formData.name}
+                        value={formData.role}
                         onChange={handleInputChange}
                     />
                 </FormGroup>

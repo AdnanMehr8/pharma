@@ -7,8 +7,11 @@ const manufacturingRecordSchema = new mongoose.Schema({
   mixingCompletedOn: String,
   sampleTakenQty: String,
   performedByOperator: String,
+  pboDate: String,
   checkedByPO: String,
+  checkedByPODate: String,
   checkedByQAI: String,
+  checkedByQAIDate: String,
   target: String,
 });
 
@@ -22,15 +25,19 @@ const mixingSchema = new mongoose.Schema({
     sectionInCharge: String,
     precautionsRead: String,
   },
-  lineClearance: {
+  lineClearance: [{
     equipment: String,
     equipmentId: String,
+    equipmentCapacity: String,
     previousProduct: String,
     batchNo: String,
     cleanedBy: String,
+    clDate: String,
     checkedBy: String,
+    chDate: String,
     verifiedBy: String,
-  },
+    vDate: String,
+  }],
   batchInfo: {
     productName: String,
     batchNo: String,
@@ -65,7 +72,7 @@ const mixingSchema = new mongoose.Schema({
     temperature: String,
     humidity: String,
   },
-  remarks: String,
+  mixingRemarks: String,
   authorization: {
     authorizedForUse: String,
     dateAndTime: String,
@@ -97,15 +104,9 @@ const mixingSchema = new mongoose.Schema({
       },
     ],
     performedBy: String,
-    // theoreticalYield: String,
-    // actualYield: String,
-    // qaSample: String,
-    // lossesDuringProcess: String,
-    // rejected: String,
-    // performedBy: String,
-    // granulationYieldPercentage: String,
+    pbDate: String,
   },
-  requestForAnalysis: {
+  requestForAnalysisMixing: {
     batchInfo: {
       product: String,
       qcNumber: String,
@@ -134,7 +135,7 @@ const mixingSchema = new mongoose.Schema({
     qaObservations: [
       {
         parameter: String,
-        status: { type: String, default: 'OK' },
+        statusMixing: String, // OK or Not OK
         remarks: String,
       },
     ],

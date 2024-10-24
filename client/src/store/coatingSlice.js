@@ -10,15 +10,19 @@ const initialState = {
     sectionInCharge: "",
     precautionsRead: "",
   },
-  lineClearance: {
+  lineClearance: Array(1).fill({
     equipment: "",
     equipmentId: "",
+    equipmentCapacity: "",
     previousProduct: "",
     batchNo: "",
     cleanedBy: "",
+    clDate: '',
     checkedBy: "",
+    chDate: '',
     verifiedBy: "",
-  },
+    vDate: '',
+  }),
   batchInfo: {
     productName: "",
     batchNo: "",
@@ -53,7 +57,7 @@ const initialState = {
     temperature: "",
     humidity: "",
   },
-  remarks: "",
+  coatingRemarks: "",
   authorization: {
     authorizedForUse: "",
     dateAndTime: "",
@@ -65,6 +69,9 @@ const initialState = {
     performedByOperator: "",
     checkedByPO: "",
     checkedByQAI: "",
+    pboDate: "",
+    checkedByPODate: "",
+    checkedByQAIDate: "",
   }],
   coatingProcedure:
     [{
@@ -74,6 +81,9 @@ const initialState = {
       performedByOperator: "",
       checkedByPO: "",
       checkedByQAI: "",
+      pboDate: "",
+      checkedByPODate: "",
+      checkedByQAIDate: "",
     },
     {
       instructions: "Pre warm the core tablets with jogging for 10 minutes at 75 C before film coating. Then start coating as per above mentioned parameters",
@@ -82,6 +92,9 @@ const initialState = {
       performedByOperator: "",
       checkedByPO: "",
       checkedByQAI: "",
+      pboDate: "",
+      checkedByPODate: "",
+      checkedByQAIDate: "",
     },{
       instructions: "After coating, cool the tablets for 20 minutes. ",
       activityCompliance: "",
@@ -89,6 +102,9 @@ const initialState = {
       performedByOperator: "",
       checkedByPO: "",
       checkedByQAI: "",
+      pboDate: "",
+      checkedByPODate: "",
+      checkedByQAIDate: "",
       },
       {
         instructions: "Collect tablets in cleaned, tarred, polythene lined labeled drums. Send test request to Quality Control for physical & chemical analysis. Raise the intimation to QA for sampling and getting the sample tested by QC physically and chemically. Sample taken Qty: ",
@@ -97,6 +113,9 @@ const initialState = {
         performedByOperator: "",
         checkedByPO: "",
         checkedByQAI: "",
+        pboDate: "",
+        checkedByPODate: "",
+        checkedByQAIDate: "",
       }
     ],
   
@@ -128,7 +147,7 @@ const initialState = {
     },
     qaObservations: Array(8).fill({
       parameter: "",
-      status: "Ok",
+      statusCoating: "",
       remarks: "",
     }),
     qaOfficer: "",
@@ -158,6 +177,8 @@ const initialState = {
       },
     ),
     performedBy: '',
+    performedByDate: '',
+
   },
 };
 
@@ -174,7 +195,7 @@ export const coatingSlice = createSlice({
         batchRecord,
         checkboxes,
         tempAndHumidity,
-        remarks,
+        coatingRemarks,
         authorization,
         compressionRecord,
         compressionSpecifications,
@@ -190,12 +211,13 @@ export const coatingSlice = createSlice({
       } = action.payload;
 
       state.precautions = { ...state.precautions, ...precautions };
-      state.lineClearance = { ...state.lineClearance, ...lineClearance };
+      state.lineClearance = action.payload.lineClearance || state.lineClearance;
+      // state.lineClearance = { ...state.lineClearance, ...lineClearance };
       state.batchInfo = { ...state.batchInfo, ...batchInfo };
       state.batchRecord = { ...state.batchRecord, ...batchRecord };
       state.checkboxes = { ...state.checkboxes, ...checkboxes };
       state.tempAndHumidity = { ...state.tempAndHumidity, ...tempAndHumidity };
-      state.remarks = remarks;
+      state.coatingRemarks = coatingRemarks;
       state.authorization = { ...state.authorization, ...authorization };
       // state.coatingSolutionPreparation = coatingSolutionPreparation;
 

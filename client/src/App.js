@@ -49,6 +49,11 @@ import TabsWrappedLabel, { CustomTabPanel } from './pages/forms/tablet arex 10mg
 import EquipmentTable from './components/Machines'
 import ProductList from './components/Products'
 import { Box, CircularProgress } from '@mui/material'
+import Report from './reports/Report'
+import BatchManufacturingRecord from './pages/forms/tablet arex 10mg/p'
+import LineClearanceForm from './pages/forms/tablet arex 10mg/p'
+import WeightOfGranules from './pages/forms/tablet arex 10mg/p'
+import PharmaceuticalForms from './pages/forms/tablet arex 10mg/p'
 
 
 
@@ -75,7 +80,7 @@ const App = () => {
     : (
   // return (
     <div>
-    <Header></Header>
+    {/* <Header></Header> */}
     <Routes>
       <Route path='/login' element= {<Login />} />
         <Route path='/signup' element={<Signup />} />
@@ -87,6 +92,10 @@ const App = () => {
         <Route path='/coating' element={<Coating />} />
         <Route path='/machines' element={<EquipmentTable />} />
         <Route path='/products' element={<ProductList />} />
+        <Route path='/report' element={<Report />} />
+        <Route path='/p' element={<PharmaceuticalForms />} />
+        
+        
 
 
 
@@ -150,7 +159,7 @@ const App = () => {
 
 
         <Route path="/dashboard" element={
-           <Protected isAuth={isAuth} userRole={userRole} requiredRole="admin">
+           <Protected isAuth={isAuth} userRole={userRole} requiredRole="pharmacist">
            <Dashboard />
          </Protected>
         } />

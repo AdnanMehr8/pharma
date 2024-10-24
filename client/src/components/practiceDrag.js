@@ -16,11 +16,11 @@ const componentMap = {
   mixing: <Mixing />,
   compression: <Compression />,
   coating: <Coating />,
-  machines: <EquipmentTable />
+  // machines: <EquipmentTable />
 };
 
 const DraggableList = () => {
-  const initialProcesses = ['dispensing',  'mixing', 'compression', 'coating', 'machines'];
+  const initialProcesses = ['dispensing',  'mixing', 'compression', 'coating'];
 
   const [processes, setProcesses] = useState(() => {
     const savedProcesses = localStorage.getItem('processes');

@@ -76,4 +76,25 @@ const admin = (req, res, next) => {
     next();
 };
 
-module.exports = { auth, admin };
+const pharmacist = (req, res, next) => {
+    if (req.user.role !== 'admin') {
+        return res.status(403).json({ msg: 'Access denied' });
+    }
+    next();
+};
+
+const operator = (req, res, next) => {
+    if (req.user.role !== 'admin') {
+        return res.status(403).json({ msg: 'Access denied' });
+    }
+    next();
+};
+
+const qa_officer = (req, res, next) => {
+    if (req.user.role !== 'admin') {
+        return res.status(403).json({ msg: 'Access denied' });
+    }
+    next();
+};
+
+module.exports = { auth, admin, operator, pharmacist, qa_officer };

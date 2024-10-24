@@ -246,6 +246,12 @@ const CategoryProductList = () => {
       });
     });
 
+      // Sort products in each category alphabetically by description
+  Object.keys(categorized).forEach(categoryId => {
+    categorized[categoryId].sort((a, b) => a.description.localeCompare(b.description));
+  });
+
+
     return categorized;
   };
 

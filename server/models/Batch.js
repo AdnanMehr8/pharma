@@ -78,9 +78,27 @@ const BatchSchema = new mongoose.Schema({
       dateAndTime: String,
     },
     weighingRecordRaw: [WeighingRecordSchema],
-    checkRecordRaw: [CheckRecordSchema],
+  checkRecordRaw: {
+    checkedByDispensingPharmacist: String,
+    dateDP: String,
+    checkedByQAOfficer: String,
+    dateQA: String,
+    receivedByProductionPharmacist: String,
+    datePP: String,
+    receivedBySupervisor: String,
+    dateS: String,
+    },
     weighingRecordCoating: [WeighingRecordCoatingSchema],
-  checkRecordCoating: [CheckRecordCoatingSchema],
+  checkRecordCoating: {
+    checkedByDispensingPharmacist: String,
+    dateDP: String,
+    checkedByQAOfficer: String,
+    dateQA: String,
+    receivedByProductionPharmacist: String,
+    datePP: String,
+    receivedBySupervisor: String,
+    dateS: String,
+  },
   }, { timestamps: true });
   
   module.exports = mongoose.model('Batch', BatchSchema);

@@ -19,7 +19,7 @@ async function refresh(refreshToken) {
         }
 
         const newAccessToken = JWTService.signAccessToken({ _id: userId }, '30m');
-        const newRefreshToken = JWTService.signRefreshToken({ _id: userId }, '60m');
+        const newRefreshToken = JWTService.signRefreshToken({ _id: userId }, '7d');
 
         await RefreshToken.updateOne({ userId }, { token: newRefreshToken });
 

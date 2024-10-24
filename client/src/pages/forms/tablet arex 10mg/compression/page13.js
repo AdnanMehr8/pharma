@@ -43,65 +43,89 @@ export default function BatchManufacturingFormPage13() {
       }
     }));
   };
+  const handleQADateCheckChange = (value) => {
+    dispatch(setCompressionRecord({
+      ...compressionState,
+      compressionSpecifications: {
+        ...compressionState.compressionSpecifications,
+        checkedByQADate: value
+      }
+    }));
+  };
 
   const handleBackClick = () => navigate(-1);
   const handleNextClick = () => navigate('/next-page'); // Replace with actual next page route
 
   return (
-    <Card className="max-w-4xl mx-auto">
-      <CardContent>
+    // <Card className="max-w-4xl mx-auto">
+    <div className="p-4 mb-4">
+      {/* <CardContent> */}
         <h2 className="text-2xl font-bold mb-4 text-center">Compression Specifications:</h2>
         
-        <TableContainer component={Paper}>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>Parameters</TableCell>
-                <TableCell>Specification</TableCell>
-                <TableCell>Results</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
+        {/* <TableContainer component={Paper}> */}
+        <table className="w-full border-collapse border border-gray-300">
+      
+          {/* <Table> */}
+        {/* <TableHead> */}
+        <thead>
+        <tr className="bg-gray-100">
+              {/* <TableRow> */}
+                <th>Parameters</th>
+                <th>Specification</th>
+                <th>Results</th>
+              {/* </TableRow> */}
+          </tr>
+          </thead>
+        {/* <TableBody> */}
+        <tbody>
+        
               {['', '', '', ' ', ' ', ' ', '', ' ', ''].map((param, index) => (
-                <TableRow key={index}>
-                  <TableCell>
+                <tr key={index}>
+                  <td className="border border-gray-300 p-2 text-center">
                     <TextField
                       value={compressionState.compressionSpecifications.parameters[index]?.parameters || param}
                       onChange={(e) => handleInputChange(index, 'parameters', e.target.value)}
                       fullWidth
                             multiline
                     />
-                  </TableCell>
-                  <TableCell>
+                  </td>
+                  <td className="border border-gray-300 p-2 text-center">
                     <TextField
                       fullWidth
                       multiline
                       value={compressionState.compressionSpecifications.parameters[index]?.specification || ''}
                       onChange={(e) => handleInputChange(index, 'specification', e.target.value)}
                     />
-                  </TableCell>
-                  <TableCell>
+                  </td>
+                  <td className="border border-gray-300 p-2 text-center">
+
                     <TextField
                       fullWidth
                       multiline
                       value={compressionState.compressionSpecifications.parameters[index]?.results || ''}
                       onChange={(e) => handleInputChange(index, 'results', e.target.value)}
                     />
-                  </TableCell>
-                </TableRow>
+                  </td>
+                </tr>
               ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-
-        <div className="mt-4">
-          <TextField
-            fullWidth
-            multiline
-            label="Checked by QA"
-            value={compressionState.compressionSpecifications.checkedByQA}
-            onChange={(e) => handleQACheckChange(e.target.value)}
+            </tbody>
+          </table>
+      {/* </TableContainer> */}
+      
+      <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between', gap: '1000px' }} className="mt-4">
+  <div className=" mr-4" > {/* Add margin to the right */}
+    <p>Checked by QA</p>
+    <input
+      value={compressionState.compressionSpecifications.checkedByQA}
+      onChange={(e) => handleQACheckChange(e.target.value)}
           />
+          <input
+            type='date'
+      value={compressionState.compressionSpecifications.checkedByQADate}
+      onChange={(e) => handleQADateCheckChange(e.target.value)}
+    />
+        <br/>(Sign & Date)    
+        </div>
         </div>
 
         {/* <div className="mt-4 flex justify-between">
@@ -112,7 +136,8 @@ export default function BatchManufacturingFormPage13() {
             Next
           </Button>
         </div> */}
-      </CardContent>
-    </Card>
+      {/* </CardContent> */}
+      {/* </Card> */}
+      </div>
   );
 }

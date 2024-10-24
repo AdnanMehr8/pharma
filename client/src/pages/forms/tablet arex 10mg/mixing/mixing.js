@@ -197,13 +197,14 @@ const Mixing = () => {
       lineClearance,
       batchRecord,
       tempAndHumidity,
-      remarks,
+      mixingRemarks,
       authorization,
       manufacturingRecord,
       weightOfGranules,
       granulationYield,
       batchManufacturingYield,
-      requestForAnalysis,
+      checkboxes,
+      requestForAnalysisMixing,
     } = record;
   
     switch (tabValue) {
@@ -214,13 +215,7 @@ const Mixing = () => {
           !precautions.section || 
           !precautions.specificArea || 
           !precautions.precautionsRead || 
-          !lineClearance.equipment || 
-          // !lineClearance.euipmentId || 
-          !lineClearance.previousProduct || 
-          !lineClearance.batchNo || 
-          !lineClearance.cleanedBy || 
-          !lineClearance.checkedBy || 
-          !lineClearance.verifiedBy
+          !lineClearance.every(line => line.equipment && line.equipmentId && line.previousProduct && line.batchNo && line.cleanedBy && line.checkedBy && line.verifiedBy && line.equipmentCapacity && line.clDate && line.chDate && line.vDate )
         ) {
           alert('Please fill out all required fields on this page before proceeding.');
           return false;
@@ -238,9 +233,17 @@ const Mixing = () => {
           !batchRecord.previousProduct || 
           !batchRecord.previousProductBatchNo || 
           !batchRecord.signature || 
+          !checkboxes.documents ||
+          !checkboxes.rawMaterial ||
+          !checkboxes.remnantOfPreviousProduct ||
+          !checkboxes.area ||
+          !checkboxes.mixer ||
+          !checkboxes.otherEquipments ||
+          !checkboxes.scoops ||
+          !checkboxes.pallets ||
           !tempAndHumidity.temperature || 
           !tempAndHumidity.humidity || 
-          !remarks || 
+          !mixingRemarks || 
           !authorization.authorizedForUse || 
           !authorization.dateAndTime
         ) {
@@ -251,7 +254,7 @@ const Mixing = () => {
   
         case 2: // Combined case for coating solution preparation and coating procedure
         if (
-          !manufacturingRecord.every(prep => prep.performedByOperator && prep.checkedByPO && prep.checkedByQAI) || 
+          !manufacturingRecord.every(prep => prep.performedByOperator && prep.checkedByPO && prep.checkedByQAI && prep.pboDate && prep.checkedByPODate && prep.checkedByQAIDate) || 
           !manufacturingRecord[0].sievingStartedAt || 
           !manufacturingRecord[0].sievingCompletedOn || 
           !manufacturingRecord[1].mixingStartedAt || 
@@ -273,7 +276,9 @@ const Mixing = () => {
           !weightOfGranules?.weighedBy || 
           !weightOfGranules?.receivedBy ||
           !granulationYield.labels.every(label => label.description && label.weight) || 
-          !granulationYield.performedBy
+          !granulationYield.performedBy ||
+          !granulationYield.pbDate
+
         ) {
           alert('Please fill out all required fields on this page before proceeding.');
           return false;
@@ -282,29 +287,29 @@ const Mixing = () => {
   
       case 4: 
         if (
-          !requestForAnalysis.batchInfo.product || 
-          !requestForAnalysis.batchInfo.qcNumber || 
-          !requestForAnalysis.batchInfo.section || 
-          !requestForAnalysis.batchInfo.stage || 
-          !requestForAnalysis.batchInfo.batchNumber || 
-          !requestForAnalysis.batchInfo.mfgDate || 
-          !requestForAnalysis.batchInfo.expDate || 
-          !requestForAnalysis.batchInfo.date || 
-          !requestForAnalysis.batchInfo.time || 
-          !requestForAnalysis.batchInfo.packSize || 
-          !requestForAnalysis.batchInfo.sampleQuantity || 
-          !requestForAnalysis.batchInfo.weightPerUnit || 
-          !requestForAnalysis.batchInfo.bSize || 
-          !requestForAnalysis.qa.sampleType || 
-          !requestForAnalysis.qa.releaseRequiredFor || 
-          !requestForAnalysis.qa.collectedBy || 
-          !requestForAnalysis.qa.dateCollected || 
-          !requestForAnalysis.qa.timeCollected || 
-          !requestForAnalysis.qa.quantityOfSample || 
-          !requestForAnalysis.qa.containerNumbers || 
-          !requestForAnalysis.qaObservations.every(obs => obs.parameter && obs.status && obs.remarks) || 
-          !requestForAnalysis.qaOfficer || 
-          !requestForAnalysis.qaManager
+          !requestForAnalysisMixing.batchInfo.product || 
+          !requestForAnalysisMixing.batchInfo.qcNumber || 
+          !requestForAnalysisMixing.batchInfo.section || 
+          !requestForAnalysisMixing.batchInfo.stage || 
+          !requestForAnalysisMixing.batchInfo.batchNumber || 
+          !requestForAnalysisMixing.batchInfo.mfgDate || 
+          !requestForAnalysisMixing.batchInfo.expDate || 
+          !requestForAnalysisMixing.batchInfo.date || 
+          !requestForAnalysisMixing.batchInfo.time || 
+          !requestForAnalysisMixing.batchInfo.packSize || 
+          !requestForAnalysisMixing.batchInfo.sampleQuantity || 
+          !requestForAnalysisMixing.batchInfo.weightPerUnit || 
+          !requestForAnalysisMixing.batchInfo.bSize || 
+          !requestForAnalysisMixing.qa.sampleType || 
+          !requestForAnalysisMixing.qa.releaseRequiredFor || 
+          !requestForAnalysisMixing.qa.collectedBy || 
+          !requestForAnalysisMixing.qa.dateCollected || 
+          !requestForAnalysisMixing.qa.collectedBy || 
+          !requestForAnalysisMixing.qa.quantityOfSample || 
+          !requestForAnalysisMixing.qa.containerNumbers || 
+          !requestForAnalysisMixing.qaObservations.every(obs => obs.parameter && obs.statusMixing  && obs.remarks) || 
+          !requestForAnalysisMixing.qaOfficer || 
+          !requestForAnalysisMixing.qaManager
         ) {
           alert('Pleaserequired fields on this page before proceeding.');
           return false;
@@ -359,8 +364,8 @@ const Mixing = () => {
       console.log("Batch created:", data);
 
       if (data && data._id) {
-        localStorage.setItem('batchId', data._id);
-        console.log('Batch ID stored in localStorage:', data._id);
+        localStorage.setItem('mixingId', data._id);
+        console.log('MixingID stored in localStorage:', data._id);
       }
 
       const processes = JSON.parse(localStorage.getItem('processes'));
@@ -437,15 +442,15 @@ const Mixing = () => {
         )}
       </div>
 
-      <div className="mt-6 flex justify-between">
+      <div className="mt-6" style={{ display: 'flex', justifyContent: 'space-between' }}>
         {tabValue > 0 && (
-          <Button variant="contained" color="primary" onClick={handleBackTab}>
+          <Button variant="contained" color="primary" onClick={handleBackTab} className='mt-4'>
             Back
           </Button>
         )}
 
         {tabValue < 4 && (
-          <Button variant="contained" color="primary" onClick={handleNextTab}>
+          <Button variant="contained" color="primary" onClick={handleNextTab} className='mt-4'>
             Next
           </Button>
         )}

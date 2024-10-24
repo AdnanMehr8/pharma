@@ -411,11 +411,11 @@ const Dispensing = () => {
   };
 
   const validateFields = () => {
-    const { batchRecord, tempAndHumidity, authorization, remarks, weighingRecordRaw, checkRecordRaw, weighingRecordCoating, checkRecordCoating } = record;
+    const { batchRecord, checkboxes, tempAndHumidity, authorization, remarks, weighingRecordRaw, checkRecordRaw, weighingRecordCoating, checkRecordCoating } = record;
 
     if (tabValue === 0) { // Page 1
       // Validate required fields for batchRecord
-      if (!batchRecord.date || !batchRecord.lineClearance || !batchRecord.department || !batchRecord.section || !batchRecord.currentProduct || !batchRecord.currentProductBatchNo || !batchRecord.previousProduct || !batchRecord.previousProductBatchNo || !batchRecord.signature || !tempAndHumidity.temperature || !tempAndHumidity.humidity || !authorization.authorizedForUse || !authorization.dateAndTime || !remarks) {
+      if (!batchRecord.date || !batchRecord.lineClearance || !batchRecord.department || !batchRecord.section || !batchRecord.currentProduct || !batchRecord.currentProductBatchNo || !batchRecord.previousProduct || !batchRecord.previousProductBatchNo || !batchRecord.signature || !checkboxes.cartons || !checkboxes.documents || !checkboxes.rawMaterial || !checkboxes.remnantOfPreviousProduct || !checkboxes.area || !checkboxes.weighingBalance || !checkboxes.dispensingBoard || !checkboxes.scoops || !checkboxes.pallets ||  !tempAndHumidity.temperature || !tempAndHumidity.humidity || !authorization.authorizedForUse || !authorization.dateAndTime || !remarks) {
         alert('Please fill out all required fields on Page 1 before proceeding.');
         return false;
       }
@@ -427,7 +427,7 @@ const Dispensing = () => {
       }
 
       // Validate check records (Raw)
-      if (!checkRecordRaw.checkedByDispensingPharmacist || !checkRecordRaw.checkedByQAOfficer || !checkRecordRaw.receivedByProductionPharmacist || !checkRecordRaw.receivedBySupervisor) {
+      if (!checkRecordRaw.checkedByDispensingPharmacist || !checkRecordRaw.dateDP || !checkRecordRaw.checkedByQAOfficer || !checkRecordRaw.dateQA || !checkRecordRaw.receivedByProductionPharmacist || !checkRecordRaw.datePP || !checkRecordRaw.dateS || !checkRecordRaw.receivedBySupervisor) {
         alert('Please fill out all check record fields for raw material before proceeding.');
         return false;
       }
@@ -439,7 +439,7 @@ const Dispensing = () => {
       }
 
       // Validate check records (Coating)
-      if (!checkRecordCoating.checkedByDispensingPharmacist || !checkRecordCoating.checkedByQAOfficer || !checkRecordCoating.receivedByProductionPharmacist || !checkRecordCoating.receivedBySupervisor) {
+      if (!checkRecordCoating.checkedByDispensingPharmacist || !checkRecordCoating.checkedByQAOfficer || !checkRecordCoating.receivedByProductionPharmacist || !checkRecordCoating.receivedBySupervisor || !checkRecordCoating.dateDP || !checkRecordCoating.dateQA || !checkRecordCoating.datePP || !checkRecordCoating.dateS) {
         alert('Please fill out all check record fields for coating material before proceeding.');
         return false;
       }
@@ -537,9 +537,7 @@ const Dispensing = () => {
         )}
         {tabValue === 1 && (
           <div className="mt-6">
-            <h5 className="text-lg font-semibold mt-5">
-              Weighing Record Sheet Dispensing (Raw Material):
-            </h5>
+            
             <BatchManufacturingFormPage2 />
             <Button variant="contained" onClick={handlePrint} className="mt-3">
               Print Page
@@ -548,9 +546,7 @@ const Dispensing = () => {
         )}
         {tabValue === 2 && (
           <div className="mt-6">
-            <h5 className="text-lg font-semibold mt-5">
-              Weighing Record Sheet Dispensing (Coating Material):
-            </h5>
+        
             <BatchManufacturingFormPage3 />
             <Button variant="contained" onClick={handlePrint} className="mt-3">
               Print Page
@@ -561,19 +557,19 @@ const Dispensing = () => {
 
       <div className="mt-6 flex justify-between">
         {tabValue > 0 && (
-          <Button variant="contained" color="primary" onClick={handleBackTab}>
+          <Button variant="contained" color="primary" onClick={handleBackTab} style={{ display: 'flex', justifyContent: 'space-between' }}>
             Back
           </Button>
         )}
 
         {tabValue < 2 && (
-          <Button variant="contained" color="primary" onClick={handleNextTab}>
+          <Button variant="contained" color="primary" onClick={handleNextTab} className='mt-4'>
             Next
           </Button>
         )}
 
         {tabValue === 2 && (
-          <Button variant="contained" color="primary" onClick={handleSubmit}>
+          <Button variant="contained" color="primary" onClick={handleSubmit} className='mt-4'>
             Save and Next
           </Button>
         )}

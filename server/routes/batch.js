@@ -160,7 +160,7 @@ router.post("/mixing", async (req, res) => {
 // Get all mixing records
 router.get("/mixings", async (req, res) => {
   try {
-    const mixings = await Mixing.find().populate('performedBy checkedBy authorizedBy');
+    const mixings = await Mixing.find();
     res.json(mixings);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -170,7 +170,7 @@ router.get("/mixings", async (req, res) => {
 // Get a specific mixing record
 router.get("/mixing/:id", async (req, res) => {
   try {
-    const mixing = await Mixing.findById(req.params.id).populate('performedBy checkedBy authorizedBy');
+    const mixing = await Mixing.findById(req.params.id);
     if (!mixing) return res.status(404).json({ message: "Mixing record not found" });
     res.json(mixing);
   } catch (error) {
@@ -180,6 +180,7 @@ router.get("/mixing/:id", async (req, res) => {
 
 // Update a mixing record
 router.patch("/mixing/:id", async (req, res) => {
+  console.log("Fetching mixing record with ID:", req.params.id);
   try {
     const mixing = await Mixing.findByIdAndUpdate(req.params.id, req.body, { new: true });
     if (!mixing) return res.status(404).json({ message: "Mixing record not found" });
@@ -217,7 +218,7 @@ router.post("/compression", async (req, res) => {
 // Get all compression records
 router.get("/compressions", async (req, res) => {
   try {
-    const compressions = await Compression.find().populate('performedBy checkedBy authorizedBy');
+    const compressions = await Compression.find();
     res.json(compressions);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -227,7 +228,7 @@ router.get("/compressions", async (req, res) => {
 // Get a specific compression record
 router.get("/compression/:id", async (req, res) => {
   try {
-    const compression = await Compression.findById(req.params.id).populate('performedBy checkedBy authorizedBy');
+    const compression = await Compression.findById(req.params.id);
     if (!compression) return res.status(404).json({ message: "compression record not found" });
     res.json(compression);
   } catch (error) {
@@ -274,7 +275,7 @@ router.post("/coating", async (req, res) => {
 // Get all coating records
 router.get("/coatings", async (req, res) => {
   try {
-    const coatings = await Coating.find().populate('performedBy checkedBy authorizedBy');
+    const coatings = await Coating.find();
     res.json(coatings);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -284,7 +285,7 @@ router.get("/coatings", async (req, res) => {
 // Get a specific coating record
 router.get("/coating/:id", async (req, res) => {
   try {
-    const coating = await Coating.findById(req.params.id).populate('performedBy checkedBy authorizedBy');
+    const coating = await Coating.findById(req.params.id);
     if (!coating) return res.status(404).json({ message: "coating record not found" });
     res.json(coating);
   } catch (error) {

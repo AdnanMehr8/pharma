@@ -15,14 +15,14 @@ async function login(req, res) {
 
         // Send tokens in cookies
         res.cookie('accessToken', accessToken, {
-            maxAge: 1000 * 60 * 60 * 24,
+            maxAge: 1000 * 60 * 30, // 30 minutes
             httpOnly: true,
             sameSite: 'lax',
             secure: false
         });
 
         res.cookie('refreshToken', refreshToken, {
-            maxAge: 1000 * 60 * 60 * 24,
+            maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
             httpOnly: true,
             sameSite: 'lax',
             secure: false

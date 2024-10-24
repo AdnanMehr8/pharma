@@ -577,7 +577,7 @@ const Compression = () => {
       lineClearance,
       batchRecord,
       tempAndHumidity,
-      remarks,
+      compressionRemarks,
       authorization,
       compressionRecord,
       compressionSpecifications,
@@ -587,46 +587,59 @@ const Compression = () => {
       weightOfCompressedTablets,
       compressionYield,
       requestForAnalysisEnd,
+      checkboxes,
     } = record;
 
     switch (tabValue) {
       case 0: 
-        if (!precautions.precautionsRead || !lineClearance.previousProduct || !lineClearance.batchNo || !lineClearance.cleanedBy || !lineClearance.checkedBy || !lineClearance.verifiedBy) {
+        if (!precautions.precautionsRead || 
+          !lineClearance.every(line => line.equipment && line.equipmentId && line.previousProduct && line.batchNo && line.cleanedBy && line.checkedBy && line.verifiedBy && line.equipmentCapacity && line.clDate && line.chDate && line.vDate )
+        ) {
           alert('Please fill out all required fields on this page before proceeding.');
           return false;
         }
         break;
       
       case 1: 
-        if (!batchRecord.department || !batchRecord.currentProduct || !batchRecord.currentProductBatchNo || !batchRecord.lineClearance || !batchRecord.section || !batchRecord.date || !batchRecord.previousProduct || !batchRecord.previousProductBatchNo || !batchRecord.signature || !tempAndHumidity.temperature || !tempAndHumidity.humidity || !remarks || !authorization.authorizedForUse || !authorization.dateAndTime) {
+        if (!batchRecord.department || !batchRecord.currentProduct || !batchRecord.currentProductBatchNo || !batchRecord.lineClearance || !batchRecord.section || !batchRecord.date || !batchRecord.previousProduct || !batchRecord.previousProductBatchNo || !batchRecord.signature ||  !checkboxes.pallets ||
+          !checkboxes.cartons ||
+          !checkboxes.powderOrTabletOfPreviousBatch ||
+          !checkboxes.remnantOfPreviousProduct ||
+          !checkboxes.area ||
+          !checkboxes.compressionMachine ||
+          !checkboxes.containerOrDrums ||
+          !checkboxes.scoops || !tempAndHumidity.temperature || !tempAndHumidity.humidity || !compressionRemarks || !authorization.authorizedForUse || !authorization.dateAndTime) {
           alert('Please fill out all required fields on this page before proceeding.');
           return false;
         }
         break;
       
       case 2: 
-        if (!compressionRecord.temp || !compressionRecord.rH || !compressionRecord.weightOfGranules || !compressionRecord.upperPunch || !compressionRecord.lowerPunch || !compressionRecord.compressionStartedAt || !compressionRecord.compressionCompletedOn || !compressionRecord.sampleTakenQty) {
+        if (
+          !compressionRecord.verification.every(prep => prep.performedByOperator && prep.checkedByPO && prep.checkedByQAI && prep.pboDate && prep.checkedByPODate && prep.checkedByQAIDate && prep.target) || 
+
+          !compressionRecord.temp || !compressionRecord.rH || !compressionRecord.weightOfGranules || !compressionRecord.upperPunch || !compressionRecord.lowerPunch || !compressionRecord.compressionStartedAt || !compressionRecord.compressionCompletedOn || !compressionRecord.sampleTakenQty) {
           alert('Please fill out all required fields on this page before proceeding.');
           return false;
         }
         break;
       
         case 3: 
-          if (!requestForAnalysis.batchInfo.product || !requestForAnalysis.batchInfo.qcNumber || !requestForAnalysis.batchInfo.section || !requestForAnalysis.batchInfo.stage || !requestForAnalysis.batchInfo.batchNumber || !requestForAnalysis.batchInfo.mfgDate || !requestForAnalysis.batchInfo.expDate || !requestForAnalysis.batchInfo.date || !requestForAnalysis.batchInfo.time || !requestForAnalysis.batchInfo.packSize || !requestForAnalysis.batchInfo.sampleQuantity || !requestForAnalysis.batchInfo.weightPerUnit || !requestForAnalysis.batchInfo.bSize || !requestForAnalysis.qa.sampleType || !requestForAnalysis.qa.releaseRequiredFor || !requestForAnalysis.qa.collectedBy || !requestForAnalysis.qa.dateCollected || !requestForAnalysis.qa.timeCollected || !requestForAnalysis.qa.quantityOfSample || !requestForAnalysis.qa.containerNumbers || !requestForAnalysis.qaObservations.every(obs => obs.parameter && obs.status && obs.remarks) || !requestForAnalysis.qaOfficer || !requestForAnalysis.qaManager) {
+          if (!requestForAnalysis.batchInfo.product || !requestForAnalysis.batchInfo.qcNumber || !requestForAnalysis.batchInfo.section || !requestForAnalysis.batchInfo.stage || !requestForAnalysis.batchInfo.batchNumber || !requestForAnalysis.batchInfo.mfgDate || !requestForAnalysis.batchInfo.expDate || !requestForAnalysis.batchInfo.date || !requestForAnalysis.batchInfo.time || !requestForAnalysis.batchInfo.packSize || !requestForAnalysis.batchInfo.sampleQuantity || !requestForAnalysis.batchInfo.weightPerUnit || !requestForAnalysis.batchInfo.bSize || !requestForAnalysis.qa.sampleType || !requestForAnalysis.qa.releaseRequiredFor || !requestForAnalysis.qa.collectedBy || !requestForAnalysis.qa.dateCollected || !requestForAnalysis.qa.quantityOfSample || !requestForAnalysis.qa.containerNumbers || !requestForAnalysis.qaObservations.every(obs => obs.parameter && obs.statusCompression && obs.remarks) || !requestForAnalysis.qaOfficer || !requestForAnalysis.qaManager) {
             alert('Please fill out all required fields on this page before proceeding.');
             return false;
           }
         break;
       
       case 4: 
-        if (!compressionSpecifications.parameters.every(param => param.parameters && param.specification && param.results) || !compressionSpecifications.checkedByQA) {
+        if (!compressionSpecifications.parameters.every(param => param.parameters && param.specification && param.results) || !compressionSpecifications.checkedByQA || !compressionSpecifications.checkedByQADate) {
           alert('Please fill out all required fields on this page before proceeding.');
           return false;
         }
         break;
       
       case 5: 
-        if (!followUp.labels.every(label => label.date && label.time && label.avgWeight && label.thickness && label.hardness && label.disintigrationTime && label.friability && label.performedBy) || !followUp.checkedByQA) {
+        if (!followUp.labels.every(label => label.date && label.time && label.avgWeight && label.thickness && label.hardness && label.disintigrationTime && label.friability && label.performedBy) || !followUp.checkedByQA || !followUp.checkedByQADate ) {
           alert('Please fill out all required fields on this page before proceeding.');
           return false;
         }
@@ -651,7 +664,9 @@ const Compression = () => {
               !weightOfCompressedTablets.receivedBy || 
               // Check for compressionYield
               !compressionYield.labels.every(label => label.description && label.yield) || 
-              !compressionYield.performedBy
+              !compressionYield.performedBy ||
+              !compressionYield.performedByDate
+
             ) {
               alert('Please fill out all required fields on this page before proceeding.');
               return false;
@@ -660,7 +675,7 @@ const Compression = () => {
         
       
         case 8: 
-          if (!requestForAnalysisEnd.batchInfo.product || !requestForAnalysisEnd.batchInfo.qcNumber || !requestForAnalysisEnd.batchInfo.section || !requestForAnalysisEnd.batchInfo.stage || !requestForAnalysisEnd.batchInfo.batchNumber || !requestForAnalysisEnd.batchInfo.mfgDate || !requestForAnalysisEnd.batchInfo.expDate || !requestForAnalysisEnd.batchInfo.date || !requestForAnalysisEnd.batchInfo.time || !requestForAnalysisEnd.batchInfo.packSize || !requestForAnalysisEnd.batchInfo.sampleQuantity || !requestForAnalysisEnd.batchInfo.weightPerUnit || !requestForAnalysisEnd.batchInfo.bSize || !requestForAnalysisEnd.qa.sampleType || !requestForAnalysisEnd.qa.releaseRequiredFor || !requestForAnalysisEnd.qa.collectedBy || !requestForAnalysisEnd.qa.dateCollected || !requestForAnalysisEnd.qa.timeCollected || !requestForAnalysisEnd.qa.quantityOfSample || !requestForAnalysisEnd.qa.containerNumbers || !requestForAnalysisEnd.qaObservations.every(obs => obs.parameter && obs.status && obs.remarks) || !requestForAnalysisEnd.qaOfficer || !requestForAnalysisEnd.qaManager) {
+          if (!requestForAnalysisEnd.batchInfo.product || !requestForAnalysisEnd.batchInfo.qcNumber || !requestForAnalysisEnd.batchInfo.section || !requestForAnalysisEnd.batchInfo.stage || !requestForAnalysisEnd.batchInfo.batchNumber || !requestForAnalysisEnd.batchInfo.mfgDate || !requestForAnalysisEnd.batchInfo.expDate || !requestForAnalysisEnd.batchInfo.date || !requestForAnalysisEnd.batchInfo.time || !requestForAnalysisEnd.batchInfo.packSize || !requestForAnalysisEnd.batchInfo.sampleQuantity || !requestForAnalysisEnd.batchInfo.weightPerUnit || !requestForAnalysisEnd.batchInfo.bSize || !requestForAnalysisEnd.qa.sampleType || !requestForAnalysisEnd.qa.releaseRequiredFor || !requestForAnalysisEnd.qa.collectedBy || !requestForAnalysisEnd.qa.dateCollected || !requestForAnalysisEnd.qa.quantityOfSample || !requestForAnalysisEnd.qa.containerNumbers || !requestForAnalysisEnd.qaObservations.every(obs => obs.parameter && obs.statusCompressionEnd && obs.remarks) || !requestForAnalysisEnd.qaOfficer || !requestForAnalysisEnd.qaManager) {
             alert('Please fill out all required fields on this page before proceeding.');
             return false;
           }
@@ -713,8 +728,8 @@ const Compression = () => {
       console.log("Batch created:", data);
 
       if (data && data._id) {
-        localStorage.setItem('batchId', data._id);
-        console.log('Batch ID stored in localStorage:', data._id);
+        localStorage.setItem('compressionID', data._id);
+        console.log('Compression ID stored in localStorage:', data._id);
       }
 
       const processes = JSON.parse(localStorage.getItem('processes'));
@@ -827,15 +842,15 @@ const Compression = () => {
         )}
       </div>
 
-      <div className="mt-6 flex justify-between">
+      <div className="mt-6" style={{ display: 'flex', justifyContent: 'space-between' }}>
         {tabValue > 0 && (
-          <Button variant="contained" color="primary" onClick={handleBackTab}>
+          <Button variant="contained" color="primary" onClick={handleBackTab} className='mt-4'>
             Back
           </Button>
         )}
 
         {tabValue < 8 && (
-          <Button variant="contained" color="primary" onClick={handleNextTab}>
+          <Button variant="contained" color="primary" onClick={handleNextTab} className='mt-4'>
             Next
           </Button>
         )}

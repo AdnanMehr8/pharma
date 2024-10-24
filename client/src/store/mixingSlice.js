@@ -7,15 +7,19 @@ const initialState = {
     specificArea: "",
     precautionsRead: "",
   },
-  lineClearance: {
+  lineClearance: Array(1).fill({
     equipment: "",
     equipmentId: "",
+    equipmentCapacity: "",
     previousProduct: "",
     batchNo: "",
     cleanedBy: "",
+    clDate: '',
     checkedBy: "",
+    chDate: '',
     verifiedBy: "",
-  },
+    vDate: '',
+  }),
   batchInfo: {
     productName: "",
     batchNo: "",
@@ -50,7 +54,7 @@ const initialState = {
     temperature: "",
     humidity: "",
   },
-  remarks: "",
+  mixingRemarks: "",
   authorization: {
     authorizedForUse: "",
     dateAndTime: null,
@@ -63,6 +67,9 @@ const initialState = {
       performedByOperator: "",
       checkedByPO: "",
       checkedByQAI: "",
+      pboDate: "",
+      checkedByPODate: "",
+      checkedByQAIDate: "",
     },
     {
       target: "",
@@ -71,6 +78,9 @@ const initialState = {
       performedByOperator: "",
       checkedByPO: "",
       checkedByQAI: "",
+      pboDate: "",
+      checkedByPODate: "",
+      checkedByQAIDate: "",
     },
     {
       target: "",
@@ -78,6 +88,9 @@ const initialState = {
       performedByOperator: "",
       checkedByPO: "",
       checkedByQAI: "",
+      pboDate: "",
+      checkedByPODate: "",
+      checkedByQAIDate: "",
     },
   ],
   weightOfGranules: {
@@ -104,8 +117,9 @@ const initialState = {
       },
     ),
     performedBy: '',
+    pbDate: '',
   },
-  requestForAnalysis: {
+  requestForAnalysisMixing: {
     batchInfo: {
       product: "",
       qcNumber: "",
@@ -129,10 +143,11 @@ const initialState = {
       timeCollected: "",
       quantityOfSample: "",
       containerNumbers: "",
+      signature: "",
     },
     qaObservations: Array(8).fill({
       parameter: "",
-      status: "Ok",
+      statusMixing: "",
       remarks: "",
     }),
     qaOfficer: "",
@@ -154,24 +169,25 @@ export const mixingSlice = createSlice({
         batchRecord,
         checkboxes,
         tempAndHumidity,
-        remarks,
+        mixingRemarks,
         authorization,
         manufacturingRecord,
         weightOfGranules,
         granulationYield,
-        requestForAnalysis,
+        requestForAnalysisMixing,
       } = action.payload;
 
       state.precautions = { ...state.precautions, ...precautions };
       //   state.precautions = action.payload.precautions || state.precautions;
 
-      state.lineClearance = { ...state.lineClearance, ...lineClearance };
+      // state.lineClearance = { ...state.lineClearance, ...lineClearance };
+      state.lineClearance = action.payload.lineClearance || state.lineClearance;
 
       state.batchInfo = { ...state.batchInfo, ...batchInfo };
       state.batchRecord = { ...state.batchRecord, ...batchRecord };
       state.checkboxes = { ...state.checkboxes, ...checkboxes };
       state.tempAndHumidity = { ...state.tempAndHumidity, ...tempAndHumidity };
-      state.remarks = remarks;
+      state.mixingRemarks = mixingRemarks;
       state.authorization = { ...state.authorization, ...authorization };
       //   state.manufacturingRecord = {
       //     ...state.manufacturingRecord,
@@ -188,9 +204,9 @@ export const mixingSlice = createSlice({
         ...state.granulationYield,
         ...granulationYield,
       };
-      state.requestForAnalysis = {
-        ...state.requestForAnalysis,
-        ...requestForAnalysis,
+      state.requestForAnalysisMixing = {
+        ...state.requestForAnalysisMixing,
+        ...requestForAnalysisMixing,
       };
 
       // Save to local storage

@@ -24,15 +24,19 @@ const coatingSchema = new mongoose.Schema({
     sectionInCharge: String,
     precautionsRead: String,
   },
-  lineClearance: {
+  lineClearance: [{
     equipment: String,
     equipmentId: String,
+    equipmentCapacity: String,
     previousProduct: String,
     batchNo: String,
     cleanedBy: String,
+    clDate: String,
     checkedBy: String,
+    chDate: String,
     verifiedBy: String,
-  },
+    vDate: String,
+  }],
   batchInfo: {
     productName: String,
     batchNo: String,
@@ -67,7 +71,7 @@ const coatingSchema = new mongoose.Schema({
     temperature: String,
     humidity: String,
   },
-  remarks: String,
+  coatingRemarks: String,
   authorization: {
     authorizedForUse: String,
     dateAndTime: String,
@@ -77,6 +81,9 @@ const coatingSchema = new mongoose.Schema({
     activityCompliance: String,
     sampleTakenQty: String,
     performedByOperator: String,
+    pboDate: String,
+    checkedByPODate: String,
+    checkedByQAIDate: String,
     checkedByPO: String,
     checkedByQAI: String,
   }],
@@ -88,6 +95,9 @@ const coatingSchema = new mongoose.Schema({
       performedByOperator: String,
       checkedByPO: String,
       checkedByQAI: String,
+      pboDate: String,
+      checkedByPODate: String,
+      checkedByQAIDate: String,
     }],
 
   followUp: {
@@ -136,7 +146,7 @@ const coatingSchema = new mongoose.Schema({
     qaObservations: [
       {
         parameter: String,
-        status: String, // OK or Not OK
+        statusCoating: String, // OK or Not OK
         remarks: String,
       },
     ],
@@ -188,6 +198,8 @@ const coatingSchema = new mongoose.Schema({
       },
     ],
     performedBy: String,
+    performedByDate: String,
+
   },
   machineUsed: String,
 

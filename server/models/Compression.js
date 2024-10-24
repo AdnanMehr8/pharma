@@ -25,15 +25,19 @@ const compressionSchema = new mongoose.Schema({
     sectionInCharge: String,
     precautionsRead: String,
   },
-  lineClearance: {
+  lineClearance: [{
     equipment: String,
     equipmentId: String,
+    equipmentCapacity: String,
     previousProduct: String,
     batchNo: String,
     cleanedBy: String,
+    clDate: String,
     checkedBy: String,
+    chDate: String,
     verifiedBy: String,
-  },
+    vDate: String,
+  }],
   batchInfo: {
     productName: String,
     batchNo: String,
@@ -68,7 +72,7 @@ const compressionSchema = new mongoose.Schema({
     temperature: String,
     humidity: String,
   },
-  remarks: String,
+  compressionRemarks: String,
   authorization: {
     authorizedForUse: String,
     dateAndTime: String,
@@ -85,8 +89,12 @@ const compressionSchema = new mongoose.Schema({
     verification: [
       {
         performedByOperator: String,
+        pboDate: String,
+        checkedByPODate: String,
+        checkedByQAIDate: String,
         checkedByPO: String,
         checkedByQAI: String,
+        target: String,
       }
     ]
   },
@@ -99,6 +107,8 @@ const compressionSchema = new mongoose.Schema({
       },
     ],
     checkedByQA: String,
+    checkedByQADate: String,
+
   },
   followUp: {
     labels: [
@@ -116,6 +126,8 @@ const compressionSchema = new mongoose.Schema({
     zP: Boolean,
     others: String,
     checkedByQA: String,
+    checkedByQADate: String,
+
   },
   requestForAnalysis: {
     batchInfo: {
@@ -146,7 +158,7 @@ const compressionSchema = new mongoose.Schema({
     qaObservations: [
       {
         parameter: String,
-        status: String, // OK or Not OK
+        statusCompression: String, // OK or Not OK
         remarks: String,
       },
     ],
@@ -157,7 +169,7 @@ const compressionSchema = new mongoose.Schema({
     labels: [
       {
         dateAndTime: String,
-        weights: [Number],
+        weights: [String],
         avgWeightOf10Tabs: String,
         temp: String,
         rH: String,
@@ -198,6 +210,8 @@ const compressionSchema = new mongoose.Schema({
       },
     ],
     performedBy: String,
+    performedByDate: String,
+
   },
   requestForAnalysisEnd: {
     batchInfo: {
@@ -228,7 +242,7 @@ const compressionSchema = new mongoose.Schema({
     qaObservations: [
       {
         parameter: String,
-        status: String, // OK or Not OK
+        statusCompressionEnd: String, // OK or Not OK
         remarks: String,
       },
     ],

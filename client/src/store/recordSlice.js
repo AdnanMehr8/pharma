@@ -47,9 +47,35 @@ const initialState = {
             dateAndTime: null,
         },
         weighingRecordRaw: Array(10).fill([]),
-    checkRecordRaw: [],
+    checkRecordRaw: {
+        checkedByDispensingPharmacist: '',
+    dateDP: '',
+
+        checkedByQAOfficer: '',
+    dateQA: '',
+
+        receivedByProductionPharmacist: '',
+    datePP: '',
+
+        receivedBySupervisor: '',
+    dateS: '',
+
+    },
     weighingRecordCoating: Array(10).fill([]),
-    checkRecordCoating: [],
+    checkRecordCoating: {
+        checkedByDispensingPharmacist: '',
+    dateDP: '',
+
+        checkedByQAOfficer: '',
+    dateQA: '',
+
+        receivedByProductionPharmacist: '',
+    datePP: '',
+
+        receivedBySupervisor: '',
+    dateS: '',
+
+    },
     
 };
 
@@ -82,8 +108,10 @@ export const recordSlice = createSlice({
             state.weighingRecordCoating = action.payload.weighingRecordCoating || state.weighingRecordCoating;
 
             // state.checkRecord = checkRecordRaw;
-            state.checkRecordRaw = action.payload.checkRecordRaw || state.checkRecordRaw;
-            state.checkRecordCoating = action.payload.checkRecordCoating || state.checkRecordCoating;
+            // state.checkRecordRaw = action.payload.checkRecordRaw || state.checkRecordRaw;
+            // state.checkRecordCoating = action.payload.checkRecordCoating || state.checkRecordCoating;
+            state.checkRecordCoating = { ...state.checkRecordCoating, ...checkRecordCoating };
+            state.checkRecordRaw = { ...state.checkRecordRaw, ...checkRecordRaw };
 
             state.remarks = remarks;
             state.authorization = { ...state.authorization, ...authorization };

@@ -1,13 +1,12 @@
 import React from 'react';
-import { Card, CardContent, TextField, FormControlLabel, Radio, RadioGroup, Button } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import { Row, Col, Card, Form } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { setCoatingRecord } from '../../../../store/coatingSlice'; // Updated import for coating
+import { setCoatingRecord } from '../../../../store/coatingSlice';
+import { FormControlLabel, Radio, RadioGroup, TextField } from '@mui/material';
 
 const BatchManufacturingFormPage20 = () => {
-    const navigate = useNavigate();
     const dispatch = useDispatch();
-    const coating = useSelector((state) => state.coating); // Updated to use coating state
+    const coating = useSelector((state) => state.coating);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -20,8 +19,8 @@ const BatchManufacturingFormPage20 = () => {
             dispatch(setCoatingRecord({ ...coating, authorization: { ...coating.authorization, [name]: value } }));
         } else if (name in coating.tempAndHumidity) {
             dispatch(setCoatingRecord({ ...coating, tempAndHumidity: { ...coating.tempAndHumidity, [name]: value } }));
-        } else if (name === 'remarks') {
-            dispatch(setCoatingRecord({ ...coating, remarks: value }));
+        } else if (name === 'coatingRemarks') {
+            dispatch(setCoatingRecord({ ...coating, coatingRemarks: value }));
         }
     };
 
@@ -30,106 +29,120 @@ const BatchManufacturingFormPage20 = () => {
         dispatch(setCoatingRecord({ ...coating, checkboxes: { ...coating.checkboxes, [name]: value } }));
     };
 
-    const handleBackPage = () => {
-        navigate(-1);
-    };
-
-    const handleNextPage = () => {
-        // Handle navigation to the next page, validation, etc.
-    };
-
     return (
-        <Card className="max-w-4xl mx-auto">
-            {/* <FormHeader /> */}
-            <CardContent>
-                <div className="mt-6">
-                    <TextField 
-                        label="Date & Time" 
-                        name="date" 
-                        type='datetime-local'
-                        value={coating.batchRecord.date || ''} 
-                        onChange={handleInputChange} 
-                        className="mb-4" 
-                        InputLabelProps={{ shrink: true }}
-                    />
-                    <TextField 
-                        label="Line Clearance Required of" 
-                        name="lineClearance" 
-                        value={coating.batchRecord.lineClearance || ''} 
-                        onChange={handleInputChange} 
-                        className="mb-4" 
-                        
-                            multiline
-                    />
-                    <TextField 
-                        label="Department" 
-                        name="department" 
-                        value={coating.batchRecord.department || ''} 
-                        onChange={handleInputChange} 
-                        className="mb-4" 
-                        
-                            multiline
-                    />
-                    <TextField 
-                        label="Section" 
-                        name="section" 
-                        value={coating.batchRecord.section || ''} 
-                        onChange={handleInputChange} 
-                        className="mb-4" 
-                        
-                            multiline
-                    />
-                    <TextField 
-                        label="Current Product" 
-                        name="currentProduct" 
-                        value={coating.batchRecord.currentProduct || ''} 
-                        onChange={handleInputChange} 
-                        className="mb-4" 
-                        
-                            multiline
-                    />
-                    <TextField 
-                        label="Current Product Batch #" 
-                        name="currentProductBatchNo" 
-                        value={coating.batchRecord.currentProductBatchNo || ''} 
-                        onChange={handleInputChange} 
-                        className="mb-4" 
-                        
-                            multiline
-                    />
-                    <TextField 
-                        label="Previous Product" 
-                        name="previousProduct" 
-                        value={coating.batchRecord.previousProduct || ''} 
-                        onChange={handleInputChange} 
-                        className="mb-4" 
-                        
-                            multiline
-                    />
-                    <TextField 
-                        label="Previous Product Batch #" 
-                        name="previousProductBatchNo" 
-                        value={coating.batchRecord.previousProductBatchNo || ''} 
-                        onChange={handleInputChange} 
-                        className="mb-4" 
-                        
-                            multiline
-                    />
-                    <TextField 
-                        label="Signature" 
-                        name="signature" 
-                        value={coating.batchRecord.signature || ''} 
-                        onChange={handleInputChange} 
-                        className="mb-4" 
-                        
-                            multiline
-                    />
-                </div>
+        <Card className="max-w-4xl mx-auto p-4 ">
+            <Card.Body>
+                {/* <h2 className="text-lg font-bold mb-2 text-center">FOR QUALITY ASSURANCE DEPARTMENT USE ONLY</h2> */}
+                
+                <table className="w-full mb-4" style={{ textAlign: 'center' }}>
+                    <tbody>
+                        <tr>
+                            <td><strong>Date & Time:</strong></td>
+                            <td>
+                                <input 
+                                    type="datetime-local"
+                                    name="date"
+                                    value={coating.batchRecord.date || ''}
+                                    onChange={handleInputChange}
+                                    className="border border-gray-300 p-1"
+                                />
+                            </td>
+                            <td><strong>Line Clearance Required For:</strong></td>
+                            <td>
+                                <input 
+                                    type="text"
+                                    name="lineClearance"
+                                    value={coating.batchRecord.lineClearance || ''}
+                                    onChange={handleInputChange}
+                                    className="border border-gray-300 p-1"
+                                />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Department:</strong></td>
+                            <td>
+                                <input 
+                                    type="text"
+                                    name="department"
+                                    value={coating.batchRecord.department || ''}
+                                    onChange={handleInputChange}
+                                    className="border border-gray-300 p-1"
+                                />
+                            </td>
+                            <td><strong>Section:</strong></td>
+                            <td>
+                                <input 
+                                    type="text"
+                                    name="section"
+                                    value={coating.batchRecord.section || ''}
+                                    onChange={handleInputChange}
+                                    className="border border-gray-300 p-1"
+                                />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Current Product:</strong></td>
+                            <td>
+                                <input 
+                                    type="text"
+                                    name="currentProduct"
+                                    value={coating.batchRecord.currentProduct || ''}
+                                    onChange={handleInputChange}
+                                    className="border border-gray-300 p-1"
+                                />
+                            </td>
+                            <td><strong>Current Product Batch #:</strong></td>
+                            <td>
+                                <input 
+                                    type="text"
+                                    name="currentProductBatchNo"
+                                    value={coating.batchRecord.currentProductBatchNo || ''}
+                                    onChange={handleInputChange}
+                                    className="border border-gray-300 p-1"
+                                />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Previous Product:</strong></td>
+                            <td>
+                                <input 
+                                    type="text"
+                                    name="previousProduct"
+                                    value={coating.batchRecord.previousProduct || ''}
+                                    onChange={handleInputChange}
+                                    className="border border-gray-300 p-1"
+                                />
+                            </td>
+                            <td><strong>Previous Product Batch #:</strong></td>
+                            <td>
+                                <input 
+                                    type="text"
+                                    name="previousProductBatchNo"
+                                    value={coating.batchRecord.previousProductBatchNo || ''}
+                                    onChange={handleInputChange}
+                                    className="border border-gray-300 p-1"
+                                />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Signature:</strong></td>
+                            <td>
+                                <input 
+                                    type="text"
+                                    name="signature"
+                                    value={coating.batchRecord.signature || ''}
+                                    onChange={handleInputChange}
+                                    className="border border-gray-300 p-1"
+                                />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
 
-                <div className="flex justify-center items-center min-h-screen mb-4">
+                <div className="flex justify-center items-center mb-4">
                     <div className="mt-6">
                         <h5 className="text-lg font-semibold mb-4">
-                            Ensure that there should be no remnants of the Previous Batch Coated related to the following:
+                            Ensure that there should be no remnants of the Previous Batch Dispensed related to the following:
                         </h5>
                         <div className="grid grid-cols-2 gap-4 text-center">
                             {['documents', 'tabletsCoatingMaterial', 'remnantOfPreviousProduct'].map(item => (
@@ -138,9 +151,9 @@ const BatchManufacturingFormPage20 = () => {
                                     <RadioGroup
                                         row
                                         name={item}
-                                        value={coating.checkboxes[item] || ''} // Add fallback
+                                        value={coating.checkboxes[item]}
                                         onChange={handleCheckboxChange}
-                                        style={{ justifyContent: 'center' }} 
+                                        style={{ justifyContent: 'center' }}
                                     >
                                         <FormControlLabel value="satisfactory" control={<Radio />} label="✔️" />
                                         <FormControlLabel value="unsatisfactory" control={<Radio />} label="❌" />
@@ -152,8 +165,8 @@ const BatchManufacturingFormPage20 = () => {
                     </div>
                 </div>
 
-                <div className="flex justify-center items-center min-h-screen gap-4 mb-4">
-                    <div className="mt-6 gap-4">
+                <div className="flex justify-center items-center mb-4">
+                    <div className="mt-6">
                         <h5 className="text-lg font-semibold mb-4">Check the cleanliness of the following:</h5>
                         <div className="grid grid-cols-3 gap-4 text-center">
                             {['area', 'coatingMachine', 'containerOrDrums', 'scoops', 'pallets'].map(item => (
@@ -162,9 +175,9 @@ const BatchManufacturingFormPage20 = () => {
                                     <RadioGroup
                                         row
                                         name={item}
-                                        value={coating.checkboxes[item] || ''} // Add fallback
+                                        value={coating.checkboxes[item]}
                                         onChange={handleCheckboxChange}
-                                        style={{ justifyContent: 'center' }} 
+                                        style={{ justifyContent: 'center' }}
                                     >
                                         <FormControlLabel value="satisfactory" control={<Radio />} label="✔️" />
                                         <FormControlLabel value="unsatisfactory" control={<Radio />} label="❌" />
@@ -175,81 +188,78 @@ const BatchManufacturingFormPage20 = () => {
                         </div>
                     </div>
                 </div>
+                <h4>•	Check the Temperature & Humidity of the Area:-</h4>
+                <table className="w-full mb-4" style={{ textAlign: 'center' }}>
+                <tbody>
+                    <tr>
+                <td><strong>Temperature:</strong></td>
+                            <td>
+                                <input 
+                                   type="text" 
+                                   name="temperature"
+                                   value={coating.tempAndHumidity.temperature || ''}
+                                   onChange={handleInputChange}
+                                    className="border border-gray-300 p-1"
+                                />
+                        </td>
+                        <td><strong>Humidity:</strong></td>
+                            <td>
+                                <input 
+                                 type="text" 
+                                 name="humidity"
+                                 value={coating.tempAndHumidity.humidity || ''}
+                                 onChange={handleInputChange}
+                                    className="border border-gray-300 p-1"
+                                />
+                            </td>
+                            </tr>
+                        <tr>
 
-                <div className="mt-6">
-                    <h5 className="text-lg font-semibold mb-4">Temperature & Humidity:</h5>
-                    <div className="flex">
-                        <TextField
-                            label="Temperature"
-                            name="temperature"
-                            value={coating.tempAndHumidity.temperature || ''} // Add fallback
-                            onChange={handleInputChange}
-                            sx={{ marginRight: 2 }} 
-                            
-                            multiline
-                        />
-                        <TextField
-                            label="Humidity"
-                            name="humidity"
-                            value={coating.tempAndHumidity.humidity || ''} // Add fallback
-                            onChange={handleInputChange}
-                            
-                            multiline
-                        />
-                    </div>
-                </div>
-
-                <div className="mt-6">
-                    <TextField 
-                        label="Remarks" 
-                        name="remarks" 
-                        value={coating.remarks || ''} // Add fallback
-                        onChange={handleInputChange} 
-                        className="mb-4 mt-4" 
-                        fullWidth
-                            multiline
-                    />
-                </div>
-
-                <div className="mt-6">
-                    <h5 className="text-lg font-semibold mb-4">Authorization:</h5>
-                    <TextField 
-                        label="Authorized for Use" 
-                        name="authorizedForUse" 
-                        value={coating.authorization.authorizedForUse || ''} // Add fallback
-                        onChange={handleInputChange} 
-                        className="mb-4" 
+                        <td><strong>Remarks:</strong></td>
+                            <td colSpan={4}>
+                                <TextField 
+                                    fullWidth
+                                    multiline
+                               
+                                name="coatingRemarks"
+                                value={coating.coatingRemarks || ''}
+                                onChange={handleInputChange}
+                                />
+                            </td>
                         
-                            multiline
-                    />
-                    <TextField 
-                        label="Date & Time" 
-                        name="dateAndTime" 
-                        value={coating.authorization.dateAndTime || ''} // Add fallback
-                        onChange={handleInputChange} 
-                        className="mb-4" 
-                        type='datetime-local'
-            InputLabelProps={{ shrink: true }}
-                            
-                    />
-                </div>
+                        </tr>
 
-                <p className="text-sm text-gray-600 mt-4 text-center">
-                    Note: ✔️ = Satisfactory, ❌ = Unsatisfactory, — = Not Applicable
-                </p>
+                        <tr>
+                <td><strong>Authorized For Use (Sign.):</strong></td>
+                            <td>
+                                <input 
+                                   type="text" 
+                                   name="authorizedForUse"
+                                   value={coating.authorization.authorizedForUse || ''}
+                                   onChange={handleInputChange}
+                                    className="border border-gray-300 p-1"
+                                />
+                        </td>
+                        <td><strong>Date & Time of Authorization:</strong></td>
+                            <td>
+                                <input 
+                                   type="datetime-local" 
+                                   name="dateAndTime"
+                                   value={coating.authorization.dateAndTime || ''}
+                                   onChange={handleInputChange}
+                                    className="border border-gray-300 p-1"
+                                />
+                            </td>
+                            </tr>
+                        </tbody>
+                </table>
+               
+         
 
-                {/* Uncomment when needed */}
-                {/* 
-                <div className="flex justify-center mt-4">
-                    <Button variant="contained" color="primary" onClick={handleBackPage} className="mr-4">
-                        Back
-                    </Button>
-                    <Button variant="contained" color="primary" onClick={handleNextPage}>
-                        Next
-                    </Button>
-                </div> 
-                */}
-            </CardContent>
+            <p className="text-sm text-gray-600 mt-4 text-center">
+       <strong>Note:</strong> ✔️ = Satisfactory, ❌ = Unsatisfactory, — = Not Applicable
+   </p>
+            </Card.Body>
         </Card>
     );
 };
