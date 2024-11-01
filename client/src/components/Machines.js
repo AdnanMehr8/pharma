@@ -1,7 +1,6 @@
-
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import './Machines.css';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import "./Machines.css";
 const EquipmentTable = () => {
   const [equipmentData, setEquipmentData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -10,7 +9,7 @@ const EquipmentTable = () => {
   useEffect(() => {
     const fetchEquipmentData = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/equipment');
+        const response = await axios.get("http://localhost:5000/api/equipment");
         setEquipmentData(response.data);
       } catch (err) {
         setError(err.message);
@@ -32,7 +31,7 @@ const EquipmentTable = () => {
 
   return (
     <div>
-          <h2 className='text-center'>Equipment List</h2>
+      <h2 className="text-center">Equipment List</h2>
       <table>
         <thead>
           <tr>
@@ -45,9 +44,9 @@ const EquipmentTable = () => {
           </tr>
         </thead>
         <tbody>
-          {equipmentData.map((equipment) => (
-              equipment.equipmentList.map((item) => (
-                  <tr key={item.Equipment_Code}>
+          {equipmentData.map((equipment) =>
+            equipment.equipmentList.map((item) => (
+              <tr key={item.Equipment_Code}>
                 <td>{item.S_No}</td>
                 <td>{equipment.category}</td>
                 <td>{item.Equipment_Name}</td>
@@ -56,7 +55,7 @@ const EquipmentTable = () => {
                 <td>{item.Equipment_Code}</td>
               </tr>
             ))
-          ))}
+          )}
         </tbody>
       </table>
     </div>

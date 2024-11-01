@@ -2,7 +2,7 @@
 // const router = express.Router();
 // const Batch = require("../models/Batch");
 
-// // Create a new batch record
+// // Create a new dispensing record
 // router.post("/record", async (req, res) => {
 //   console.log("Received data structure:", JSON.stringify(req.body, null, 2));
 //   // const { weighingRecordRaw, weighingRecordCoating } = req.body;
@@ -74,69 +74,131 @@
 // module.exports = router;
 const express = require("express");
 const router = express.Router();
-const Batch = require("../models/Batch");
+const BatchInfo = require("../models/BatchInfo");
+const Batch = require("../models/Dispensing");
 const Mixing = require("../models/Mixing"); 
 const Compression = require("../models/Compression");
 const Coating = require("../models/Coating"); 
 
 
-
-// Create a new batch record
-router.post("/record", async (req, res) => {
+// Create a new batchInfo record
+router.post("/batch-info", async (req, res) => {
   console.log("Received data structure:", JSON.stringify(req.body, null, 2));
   try {
-    const batch = new Batch(req.body);
-    await batch.save();
-    console.log("Saved data:", batch);
-    res.status(201).json(batch);
+    const batchInfo = new BatchInfo(req.body);
+    await batchInfo.save();
+    console.log("Saved data:", batchInfo);
+    res.status(201).json(batchInfo);
   } catch (error) {
-    console.error("Error saving batch:", error.message);
+    console.error("Error saving batchInfo:", error.message);
     res.status(400).json({ message: error.message });
   }
 });
 
-// Get all batch records
-router.get("/records", async (req, res) => {
+// Get all batchInfo records
+router.get("/batches-info", async (req, res) => {
   try {
-    const batches = await Batch.find();
-    res.json(batches);
+    const batchInfoes = await BatchInfo.find();
+    res.json(batchInfoes);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 });
 
-// Get a specific batch record
-router.get("/record/:id", async (req, res) => {
+// Get a specific batchInfo record
+router.get("/batch-info/:id", async (req, res) => {
   try {
-    const batch = await Batch.findById(req.params.id);
-    if (!batch) return res.status(404).json({ message: "Batch not found" });
-    res.json(batch);
+    const batchInfo = await BatchInfo.findById(req.params.id);
+    if (!batchInfo) return res.status(404).json({ message: "BatchInfo not found" });
+    res.json(batchInfo);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 });
 
-// Update a batch record
-router.patch("/record/:id", async (req, res) => {
+// Update a batchInfo record
+router.patch("/batch-info/:id", async (req, res) => {
   try {
     const { id } = req.params; // This should capture the ID correctly
     console.log("Request ID:", id);
 
-    const batch = await Batch.findByIdAndUpdate(req.params.id, req.body, {
+    const batchInfo = await BatchInfo.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
     });
-    if (!batch) return res.status(404).json({ message: "Batch not found" });
-    res.json(batch);
+    if (!batchInfo) return res.status(404).json({ message: "BatchInfo not found" });
+    res.json(batchInfo);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
 });
 
-// Delete a batch record
-router.delete("/record/:id", async (req, res) => {
+// Delete a batchInfo record
+router.delete("/batch-info/:id", async (req, res) => {
   try {
-    const batch = await Batch.findByIdAndDelete(req.params.id);
-    if (!batch) return res.status(404).json({ message: "Batch not found" });
+    const batchInfo = await BatchInfo.findByIdAndDelete(req.params.id);
+    if (!batchInfo) return res.status(404).json({ message: "BatchInfo not found" });
+    res.json({ message: "BatchInfo deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+// Create a new dispensing record
+router.post("/dispensing", async (req, res) => {
+  console.log("Received data structure:", JSON.stringify(req.body, null, 2));
+  try {
+    const dispensing = new Batch(req.body);
+    await dispensing.save();
+    console.log("Saved data:", dispensing);
+    res.status(201).json(dispensing);
+  } catch (error) {
+    console.error("Error saving dispensing:", error.message);
+    res.status(400).json({ message: error.message });
+  }
+});
+
+// Get all dispensing records
+router.get("/dispensings", async (req, res) => {
+  try {
+    const dispensings = await Batch.find();
+    res.json(dispensings);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+// Get a specific dispensing record
+router.get("/dispensing/:id", async (req, res) => {
+  try {
+    const dispensing = await Batch.findById(req.params.id);
+    if (!dispensing) return res.status(404).json({ message: "Batch not found" });
+    res.json(dispensing);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+// Update a dispensing record
+router.patch("/dispensing/:id", async (req, res) => {
+  try {
+    const { id } = req.params; // This should capture the ID correctly
+    console.log("Request ID:", id);
+
+    const dispensing = await Batch.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+    });
+    if (!dispensing) return res.status(404).json({ message: "Batch not found" });
+    res.json(dispensing);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
+
+// Delete a dispensing record
+router.delete("/dispensing/:id", async (req, res) => {
+  try {
+    const dispensing = await Batch.findByIdAndDelete(req.params.id);
+    if (!dispensing) return res.status(404).json({ message: "Batch not found" });
     res.json({ message: "Batch deleted successfully" });
   } catch (error) {
     res.status(500).json({ message: error.message });

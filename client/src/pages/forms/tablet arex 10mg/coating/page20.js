@@ -9,11 +9,11 @@ const BatchManufacturingFormPage20 = () => {
     const coating = useSelector((state) => state.coating);
 
     const handleInputChange = (e) => {
-        const { name, value } = e.target;
-
-        if (name in coating.batchInfo) {
-            dispatch(setCoatingRecord({ ...coating, batchInfo: { ...coating.batchInfo, [name]: value } }));
-        } else if (name in coating.batchRecord) {
+        
+        // if (name in coating.batchInfo) {
+            //     dispatch(setCoatingRecord({ ...coating, batchInfo: { ...coating.batchInfo, [name]: value } }));
+            const { name, value } = e.target;
+         if (name in coating.batchRecord) {
             dispatch(setCoatingRecord({ ...coating, batchRecord: { ...coating.batchRecord, [name]: value } }));
         } else if (name in coating.authorization) {
             dispatch(setCoatingRecord({ ...coating, authorization: { ...coating.authorization, [name]: value } }));

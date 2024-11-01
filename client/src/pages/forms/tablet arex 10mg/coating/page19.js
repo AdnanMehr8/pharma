@@ -25,14 +25,14 @@ const BatchManufacturingFormPage19 = () => {
   const [equipmentData, setEquipmentData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [selectedEquipment, setSelectedEquipment] = useState('');
-  const [equipmentCode, setEquipmentCode] = useState('');
-  const [equipmentCapacity, setEquipmentCapacity] = useState('');
+  const [selectedEquipment, setSelectedEquipment] = useState("");
+  const [equipmentCode, setEquipmentCode] = useState("");
+  const [equipmentCapacity, setEquipmentCapacity] = useState("");
 
   useEffect(() => {
     const fetchEquipmentData = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/equipment');
+        const response = await axios.get("http://localhost:5000/api/equipment");
         setEquipmentData(response.data);
       } catch (err) {
         setError(err.message);
@@ -45,8 +45,9 @@ const BatchManufacturingFormPage19 = () => {
 
   const handleEquipmentChange = (e, index) => {
     const equipmentName = e.target.value;
-    const selectedItem = equipmentData.flatMap(equip => equip.equipmentList)
-      .find(item => item.Equipment_Name === equipmentName);
+    const selectedItem = equipmentData
+      .flatMap((equip) => equip.equipmentList)
+      .find((item) => item.Equipment_Name === equipmentName);
 
     const updatedLineClearance = coatingRecord.lineClearance.map((item, i) => {
       if (i === index && selectedItem) {
@@ -60,7 +61,12 @@ const BatchManufacturingFormPage19 = () => {
       return item;
     });
 
-    dispatch(setCoatingRecord({ ...coatingRecord, lineClearance: updatedLineClearance }));
+    dispatch(
+      setCoatingRecord({
+        ...coatingRecord,
+        lineClearance: updatedLineClearance,
+      })
+    );
   };
 
   const handleInputChange = (e, index) => {
@@ -77,7 +83,13 @@ const BatchManufacturingFormPage19 = () => {
       i === index ? { ...item, [name]: value } : item
     );
 
-    dispatch(setCoatingRecord({ ...coatingRecord, precautions: updatedPrecautions, lineClearance: updatedLineClearance }));
+    dispatch(
+      setCoatingRecord({
+        ...coatingRecord,
+        precautions: updatedPrecautions,
+        lineClearance: updatedLineClearance,
+      })
+    );
   };
 
   const addRow = () => {
@@ -91,14 +103,21 @@ const BatchManufacturingFormPage19 = () => {
       checkedBy: "",
       verifiedBy: "",
     };
-    dispatch(setCoatingRecord({ ...coatingRecord, lineClearance: [...coatingRecord.lineClearance, newLineClearanceRecord] }));
+    dispatch(
+      setCoatingRecord({
+        ...coatingRecord,
+        lineClearance: [...coatingRecord.lineClearance, newLineClearanceRecord],
+      })
+    );
   };
   return (
     <Card className="max-w-4xl mx-auto">
       <CardContent>
         <div className="mt-6">
           <div className="mt-6">
-            <h5 className="text-lg font-semibold mt-5">General instructions and precautions for coating:</h5>
+            <h5 className="text-lg font-semibold mt-5">
+              General instructions and precautions for coating:
+            </h5>
           </div>
           <div style={{ marginBottom: "1rem" }}>
             {/* <span style={{ display: "flex", alignItems: "center" }}>
@@ -110,49 +129,64 @@ const BatchManufacturingFormPage19 = () => {
                 style={{ marginLeft: "0.5rem", margin: 0 }}
               />
             </span> */}
-            <div>- Area is properly cleaned, no material from previous batch present in the area. (e.g. Product, Documents, etc.)
+            <div>
+              - Area is properly cleaned, no material from previous batch
+              present in the area. (e.g. Product, Documents, etc.)
             </div>
-            <div>- Staff properly attired. (Wear factory uniform and appropriate personnel protective equipment).</div>
+            <div>
+              - Staff properly attired. (Wear factory uniform and appropriate
+              personnel protective equipment).
+            </div>
             <div>- Relevant documents / materials are present in the area.</div>
             <div>- All relevant logbooks are filled.</div>
             <div>
-    - Before compression, carefully check the followings:
-    <ul>
-        <li>a) Machine and utensils to be used are clean. Punches and dies are in accordance with the product specification.</li>
-        <li>b) Product collecting container/trays are clean and properly labeled.</li>
-        <li>c) BMR, SOPs are in place.</li>
-        <li>d) All containers of granules are duly labeled and released by QC.</li>
-        <li>e) Dust collector/exhaust system is working.</li>
-    </ul>
-</div>
+              - Before compression, carefully check the followings:
+              <ul>
+                <li>
+                  a) Machine and utensils to be used are clean. Punches and dies
+                  are in accordance with the product specification.
+                </li>
+                <li>
+                  b) Product collecting container/trays are clean and properly
+                  labeled.
+                </li>
+                <li>c) BMR, SOPs are in place.</li>
+                <li>
+                  d) All containers of granules are duly labeled and released by
+                  QC.
+                </li>
+                <li>e) Dust collector/exhaust system is working.</li>
+              </ul>
+            </div>
 
             <div>- The room has the required temperature and humidity.</div>
             <div>- Appropriate balance is available and calibrated.</div>
             <span style={{ display: "flex", alignItems: "center" }}>
-              - Section 
+              - Section
               <TextField
                 label="Section"
                 name="section"
-                value={coatingRecord.precautions.section || ''}
+                value={coatingRecord.precautions.section || ""}
                 style={{ marginLeft: "0.5rem", margin: 0 }}
                 onChange={handleInputChange}
-                
-                            multiline
+                multiline
               />
               Area
               <TextField
                 label="Area"
                 name="specificArea"
-                value={coatingRecord.precautions.specificArea || ''}
+                value={coatingRecord.precautions.specificArea || ""}
                 style={{ marginLeft: "0.5rem", margin: 7 }}
                 onChange={handleInputChange}
-                
-                            multiline
+                multiline
               />
             </span>
           </div>
 
-          <div className="text-center mt-4">
+          <div
+            className=" mt-4"
+            style={{ display: "flex", justifyContent: "center" }}
+          >
             <strong>
               <span style={{ display: "flex", alignItems: "center" }}>
                 I HAVE READ AND UNDERSTOOD ALL THE PRECAUTIONS.
@@ -162,28 +196,93 @@ const BatchManufacturingFormPage19 = () => {
                   value={coatingRecord.precautions.precautionsRead}
                   style={{ marginLeft: "1rem", margin: 0 }}
                   onChange={handleInputChange}
-                  
-                            multiline
+                  multiline
                 />
               </span>
             </strong>
           </div>
         </div>
-        
+
         <div className="mt-6">
-          <h5 className="text-lg font-semibold mt-5">LINE CLEARANCE OF EQUIPMENT:</h5>
+          <h5 className="text-lg font-semibold mt-5">
+            LINE CLEARANCE OF EQUIPMENT:
+          </h5>
           <TableContainer component={Paper}>
             <Table>
               <TableHead>
                 <TableRow>
-                  <TableCell style={{ fontWeight: "bold", borderRight: "1px solid #ccc" }}>Equipment</TableCell>
-                  <TableCell style={{ fontWeight: "bold", borderRight: "1px solid #ccc" }}>Equipment ID</TableCell>
-                  <TableCell style={{ fontWeight: "bold", borderRight: "1px solid #ccc" }}>Capacity</TableCell>
-                  <TableCell style={{ fontWeight: "bold", borderRight: "1px solid #ccc" }}>Previous Product</TableCell>
-                  <TableCell style={{ fontWeight: "bold", borderRight: "1px solid #ccc" }}>Batch No.</TableCell>
-                  <TableCell style={{ fontWeight: "bold", borderRight: "1px solid #ccc" }}>Cleaned By Operator (Sign & Date)</TableCell>
-                  <TableCell style={{ fontWeight: "bold", borderRight: "1px solid #ccc" }}>Checked By Production Pharmacist (Sign & Date)</TableCell>
-                  <TableCell style={{ fontWeight: "bold", borderRight: "1px solid #ccc" }}>Verified By QA (Sign & Date)</TableCell>
+                  <TableCell
+                    style={{
+                      fontWeight: "bold",
+                      borderRight: "1px solid #ccc",
+                    }}
+                    className="text-center"
+                  >
+                    Equipment
+                  </TableCell>
+                  <TableCell
+                    style={{
+                      fontWeight: "bold",
+                      borderRight: "1px solid #ccc",
+                    }}
+                    className="text-center"
+                  >
+                    Equipment ID
+                  </TableCell>
+                  <TableCell
+                    style={{
+                      fontWeight: "bold",
+                      borderRight: "1px solid #ccc",
+                    }}
+                    className="text-center"
+                  >
+                    Capacity
+                  </TableCell>
+                  <TableCell
+                    style={{
+                      fontWeight: "bold",
+                      borderRight: "1px solid #ccc",
+                    }}
+                    className="text-center"
+                  >
+                    Previous Product
+                  </TableCell>
+                  <TableCell
+                    style={{
+                      fontWeight: "bold",
+                      borderRight: "1px solid #ccc",
+                    }}
+                    className="text-center"
+                  >
+                    Batch No.
+                  </TableCell>
+                  <TableCell
+                    style={{
+                      fontWeight: "bold",
+                      borderRight: "1px solid #ccc",
+                    }}
+                    className="text-center"
+                  >
+                    Cleaned By Operator (Sign & Date)
+                  </TableCell>
+                  <TableCell
+                    style={{
+                      fontWeight: "bold",
+                      borderRight: "1px solid #ccc",
+                    }}
+                    className="text-center"
+                  >
+                    Checked By Production Pharmacist (Sign & Date)
+                  </TableCell>
+                  <TableCell
+                    style={{
+                      fontWeight: "bold",
+                      borderRight: "1px solid #ccc",
+                    }}
+                    className="text-center"
+                  >
+                    Verified By QA (Sign & Date)
+                  </TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -191,7 +290,12 @@ const BatchManufacturingFormPage19 = () => {
                   <TableRow key={index}>
                     <TableCell style={{ borderRight: "1px solid #ccc" }}>
                       <input
-                        style={{width: '350px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
+                        style={{
+                          width: "350px",
+                          whiteSpace: "nowrap",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                        }}
                         list="equipment-names"
                         name="equipment"
                         // className="form-control"
@@ -200,16 +304,21 @@ const BatchManufacturingFormPage19 = () => {
                         placeholder="Search equipment name..."
                       />
                       <datalist id="equipment-names">
-                        {equipmentData.flatMap(equip => equip.equipmentList).map((equipItem, index) => (
-                          <option key={`${equipItem.Equipment_Code}-${index}`} value={equipItem.Equipment_Name}>
-                            {`${equipItem.Equipment_Name} (Capacity: ${equipItem.Capacity})`}
-                          </option>
-                        ))}
+                        {equipmentData
+                          .flatMap((equip) => equip.equipmentList)
+                          .map((equipItem, index) => (
+                            <option
+                              key={`${equipItem.Equipment_Code}-${index}`}
+                              value={equipItem.Equipment_Name}
+                            >
+                              {`${equipItem.Equipment_Name} (Capacity: ${equipItem.Capacity})`}
+                            </option>
+                          ))}
                       </datalist>
                     </TableCell>
                     <TableCell style={{ borderRight: "1px solid #ccc" }}>
                       <TextField
-                        value={item.equipmentId || 'N/A'}
+                        value={item.equipmentId || "N/A"}
                         fullWidth
                         readOnly
                         multiline
@@ -217,7 +326,7 @@ const BatchManufacturingFormPage19 = () => {
                     </TableCell>
                     <TableCell style={{ borderRight: "1px solid #ccc" }}>
                       <TextField
-                        value={item.equipmentCapacity || 'N/A'}
+                        value={item.equipmentCapacity || "N/A"}
                         fullWidth
                         readOnly
                         multiline
@@ -226,7 +335,7 @@ const BatchManufacturingFormPage19 = () => {
                     <TableCell style={{ borderRight: "1px solid #ccc" }}>
                       <TextField
                         name="previousProduct"
-                        value={item.previousProduct || ''}
+                        value={item.previousProduct || ""}
                         fullWidth
                         multiline
                         onChange={(e) => handleInputChange(e, index)}
@@ -235,73 +344,66 @@ const BatchManufacturingFormPage19 = () => {
                     <TableCell style={{ borderRight: "1px solid #ccc" }}>
                       <TextField
                         name="batchNo"
-                        value={item.batchNo || ''}
-                        style={{width: '70px'}}
-
+                        value={item.batchNo || ""}
+                        style={{ width: "70px" }}
                         fullWidth
                         multiline
                         onChange={(e) => handleInputChange(e, index)}
                       />
                     </TableCell>
-                    <TableCell style={{ borderRight: "1px solid #ccc" , width: '150px'}}>
+                    <TableCell
+                      style={{ borderRight: "1px solid #ccc", width: "150px" }}
+                    >
                       <TextField
-                        style={{width: '150px'}}
+                        style={{ width: "150px" }}
                         name="cleanedBy"
-                        value={item.cleanedBy || ''}
+                        value={item.cleanedBy || ""}
                         fullWidth
                         multiline
                         onChange={(e) => handleInputChange(e, index)}
                       />
                       <TextField
-                        style={{width: '150px'}}
-                        
+                        style={{ width: "150px" }}
                         type="date"
                         name="clDate"
-                        value={item.clDate || ''}
+                        value={item.clDate || ""}
                         fullWidth
-                        
                         onChange={(e) => handleInputChange(e, index)}
                       />
                     </TableCell>
                     <TableCell style={{ borderRight: "1px solid #ccc" }}>
                       <TextField
-                        style={{width: '150px'}}
-                        
+                        style={{ width: "150px" }}
                         name="checkedBy"
-                        value={item.checkedBy || ''}
+                        value={item.checkedBy || ""}
                         fullWidth
                         multiline
                         onChange={(e) => handleInputChange(e, index)}
                       />
                       <TextField
-                        style={{width: '150px'}}
-                        
+                        style={{ width: "150px" }}
                         type="date"
                         name="chDate"
-                        value={item.chDate || ''}
+                        value={item.chDate || ""}
                         fullWidth
-                        
                         onChange={(e) => handleInputChange(e, index)}
                       />
                     </TableCell>
                     <TableCell style={{ borderRight: "1px solid #ccc" }}>
                       <TextField
                         name="verifiedBy"
-                        style={{width: '150px'}}
-
-                        value={item.verifiedBy || ''}
+                        style={{ width: "150px" }}
+                        value={item.verifiedBy || ""}
                         fullWidth
                         multiline
                         onChange={(e) => handleInputChange(e, index)}
                       />
                       <TextField
                         type="date"
-                        style={{width: '150px'}}
-
+                        style={{ width: "150px" }}
                         name="vDate"
-                        value={item.vDate || ''}
+                        value={item.vDate || ""}
                         fullWidth
-                        
                         onChange={(e) => handleInputChange(e, index)}
                       />
                     </TableCell>
@@ -315,15 +417,6 @@ const BatchManufacturingFormPage19 = () => {
             Add Row
           </Button>
         </div>
-
-        {/* <div className="mt-6 flex justify-between">
-          <Button variant="contained" color="primary" onClick={handleBackPage}>
-            Go Back
-          </Button>
-          <Button variant="contained" color="primary" onClick={handleNextPage}>
-            Next
-          </Button>
-        </div> */}
       </CardContent>
     </Card>
   );

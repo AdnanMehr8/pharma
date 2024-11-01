@@ -143,9 +143,9 @@ const BatchManufacturingFormPage9 = () => {
             </div>
           </div>
 
-          <div className="text-center mt-4">
+          <div className=" mt-4"  style={{ display: "flex", justifyContent: "center" }}>
             <strong>
-              <div style={{ display: "flex", alignItems: "center" }}>
+              <span style={{display: "flex", alignItems: 'center'}}>
                 I HAVE READ AND UNDERSTOOD ALL THE PRECAUTIONS.
                 <TextField
                   label="In-charge Production/ Production Pharmacist"
@@ -156,7 +156,7 @@ const BatchManufacturingFormPage9 = () => {
                   
                   multiline
                 />
-              </div>
+              </span>
             </strong>
           </div>
         </div>
@@ -167,14 +167,14 @@ const BatchManufacturingFormPage9 = () => {
             <Table>
               <TableHead>
                 <TableRow>
-                  <TableCell style={{ fontWeight: "bold", borderRight: "1px solid #ccc" }}>Equipment</TableCell>
-                  <TableCell style={{ fontWeight: "bold", borderRight: "1px solid #ccc" }}>Equipment ID</TableCell>
-                  <TableCell style={{ fontWeight: "bold", borderRight: "1px solid #ccc" }}>Capacity</TableCell>
-                  <TableCell style={{ fontWeight: "bold", borderRight: "1px solid #ccc" }}>Previous Product</TableCell>
-                  <TableCell style={{ fontWeight: "bold", borderRight: "1px solid #ccc" }}>Batch No.</TableCell>
-                  <TableCell style={{ fontWeight: "bold", borderRight: "1px solid #ccc" }}>Cleaned By Operator (Sign & Date)</TableCell>
-                  <TableCell style={{ fontWeight: "bold", borderRight: "1px solid #ccc" }}>Checked By Production Pharmacist (Sign & Date)</TableCell>
-                  <TableCell style={{ fontWeight: "bold", borderRight: "1px solid #ccc" }}>Verified By QA (Sign & Date)</TableCell>
+                  <TableCell style={{ fontWeight: "bold", borderRight: "1px solid #ccc" }} className="text-center">Equipment</TableCell>
+                  <TableCell style={{ fontWeight: "bold", borderRight: "1px solid #ccc" }} className="text-center">Equipment ID</TableCell>
+                  <TableCell style={{ fontWeight: "bold", borderRight: "1px solid #ccc" }} className="text-center">Capacity</TableCell>
+                  <TableCell style={{ fontWeight: "bold", borderRight: "1px solid #ccc" }} className="text-center">Previous Product</TableCell>
+                  <TableCell style={{ fontWeight: "bold", borderRight: "1px solid #ccc" }} className="text-center">Batch No.</TableCell>
+                  <TableCell style={{ fontWeight: "bold", borderRight: "1px solid #ccc" }} className="text-center">Cleaned By Operator (Sign & Date)</TableCell>
+                  <TableCell style={{ fontWeight: "bold", borderRight: "1px solid #ccc" }} className="text-center">Checked By Production Pharmacist (Sign & Date)</TableCell>
+                  <TableCell style={{ fontWeight: "bold", borderRight: "1px solid #ccc" }} className="text-center">Verified By QA (Sign & Date)</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>

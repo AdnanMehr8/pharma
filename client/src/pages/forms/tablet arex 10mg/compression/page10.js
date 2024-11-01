@@ -11,9 +11,9 @@ const BatchManufacturingFormPage10 = () => {
     const handleInputChange = (e) => {
         const { name, value } = e.target;
 
-        if (name in compression.batchInfo) {
-            dispatch(setCompressionRecord({ ...compression, batchInfo: { ...compression.batchInfo, [name]: value } }));
-        } else if (name in compression.batchRecord) {
+        // if (name in compression.batchInfo) {
+        //     dispatch(setCompressionRecord({ ...compression, batchInfo: { ...compression.batchInfo, [name]: value } }));
+         if (name in compression.batchRecord) {
             dispatch(setCompressionRecord({ ...compression, batchRecord: { ...compression.batchRecord, [name]: value } }));
         } else if (name in compression.authorization) {
             dispatch(setCompressionRecord({ ...compression, authorization: { ...compression.authorization, [name]: value } }));

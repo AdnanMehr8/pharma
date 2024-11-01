@@ -3,6 +3,8 @@ const mongoose = require("../config/dbConfig");
 const manufacturingRecordSchema = new mongoose.Schema({
   sievingStartedAt: String,
   sievingCompletedOn: String,
+  meltingStartedAt: String,
+  meltingCompletedOn: String,
   mixingStartedAt: String,
   mixingCompletedOn: String,
   sampleTakenQty: String,
@@ -38,15 +40,15 @@ const mixingSchema = new mongoose.Schema({
     verifiedBy: String,
     vDate: String,
   }],
-  batchInfo: {
-    productName: String,
-    batchNo: String,
-    batchSize: String,
-    noOfPacks: String,
-    noOfTablets: String,
-    packsSize: String,
-    expiryDate: String,
-  },
+  // batchInfo: {
+  //   productName: String,
+  //   batchNo: String,
+  //   batchSize: String,
+  //   noOfPacks: String,
+  //   noOfTablets: String,
+  //   packsSize: String,
+  //   expiryDate: String,
+  // },
   batchRecord: {
     department: String,
     currentProduct: String,
@@ -59,6 +61,8 @@ const mixingSchema = new mongoose.Schema({
     signature: String,
   },
   checkboxes: {
+    cartons: { type: String, default: "notApplicable" },
+    creamOrOintmentmixer: { type: String, default: "notApplicable" },
     documents: { type: String, default: "notApplicable" },
     rawMaterial: { type: String, default: "notApplicable" },
     remnantOfPreviousProduct: { type: String, default: "notApplicable" },
@@ -66,6 +70,8 @@ const mixingSchema = new mongoose.Schema({
     mixer: { type: String, default: "notApplicable" },
     otherEquipments: { type: String, default: "notApplicable" },
     scoops: { type: String, default: "notApplicable" },
+    jugs: { type: String, default: "notApplicable" },
+    containers: { type: String, default: "notApplicable" },
     pallets: { type: String, default: "notApplicable" },
   },
   tempAndHumidity: {

@@ -10,7 +10,7 @@ function useAutoLogin() {
   useEffect(() => {
     (async function autoLoginApiCall() {
       try {
-        const response = await api.post('/auth/refresh-token')
+        const response = await api.post("/auth/refresh-token");
 
         if (response.status === 200) {
           const user = {
@@ -24,7 +24,7 @@ function useAutoLogin() {
           dispatch(setUser(user));
         }
       } catch (error) {
-        console.error('AutoLogin error: ', error)
+        console.error("AutoLogin error: ", error);
       } finally {
         setLoading(false);
       }

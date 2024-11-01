@@ -43,11 +43,11 @@ app.use('/api', usersRoute);
 app.use('/api', batchRoute);
 app.use('/api/equipment', machineRoute);
 app.use('/api/products', productRoute);
-app.use('/api/dispensing', require('./routes/dispensing'));
-app.use('/api/mixing', require('./routes/mixing'));
-app.use('/api/compression', require('./routes/compression'));
-app.use('/api/coating', require('./routes/coating'));
-app.use('/api/masterdata', require('./routes/masterData'));
+// app.use('/api/dispensing', require('./routes/dispensing'));
+// app.use('/api/mixing', require('./routes/mixing'));
+// app.use('/api/compression', require('./routes/compression'));
+// app.use('/api/coating', require('./routes/coating'));
+// app.use('/api/masterdata', require('./routes/masterData'));
 
 
 // In your Express server

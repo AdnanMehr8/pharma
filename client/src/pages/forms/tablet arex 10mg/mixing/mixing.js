@@ -1,167 +1,14 @@
-// import React, { useEffect } from 'react';
-
-// import { useDispatch, useSelector } from 'react-redux';
-// import { useNavigate } from 'react-router-dom';
-// import { Button } from '@mui/material';
-// import { setMixingRecord } from '../../../../store/mixingSlice'; // Updated action import
-// import BatchManufacturingFormPage4 from './page4';
-// import BatchManufacturingFormPage5 from './page5';
-// import BatchManufacturingFormPage6 from './page6';
-// import BatchManufacturingFormPage7 from './page7';
-// import FormHeader from '../../../header/formHeader';
-// import BatchManufacturingFormPage8 from './page8';
-
-// const Mixing = () => {
-//   const navigate = useNavigate();
-//   const dispatch = useDispatch();
-//   const record = useSelector((state) => state.mixing); // Updated state selector
-
-//   useEffect(() => {
-//     const storedRecord = JSON.parse(localStorage.getItem('mixingRecord')); // Updated key
-//     if (storedRecord) {
-//       dispatch(setMixingRecord(storedRecord)); // Updated action
-//     }
-//   }, [dispatch]);
-
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-
-//     const { 
-//       batchRecord, 
-//       tempAndHumidity, 
-//       authorization, 
-//       remarks, 
-//       precautions, 
-//       lineClearance, 
-//       weightOfGranules, 
-//       granulationYield 
-//     } = record;
-
-//     // Validate required fields
-//     const requiredBatchRecordFields = [
-//       batchRecord.date, 
-//       batchRecord.lineClearance, 
-//       batchRecord.department, 
-//       batchRecord.section, 
-//       batchRecord.currentProduct, 
-//       batchRecord.currentProductBatchNo, 
-//       batchRecord.previousProduct, 
-//       batchRecord.previousProductBatchNo, 
-//       batchRecord.signature
-//     ];
-
-//     const requiredTempAndHumidityFields = [
-//       tempAndHumidity.temperature, 
-//       tempAndHumidity.humidity
-//     ];
-
-//     const requiredAuthorizationFields = [
-//       authorization.authorizedForUse, 
-//       authorization.dateAndTime
-//     ];
-
-//     // Check if any required fields are empty
-//     if (requiredBatchRecordFields.some(field => !field) || 
-//         requiredTempAndHumidityFields.some(field => !field) ||
-//         requiredAuthorizationFields.some(field => !field) 
-//         // !remarks || 
-//       //   !precautions.area || 
-//       //   !lineClearance.equipment || 
-//       //   !weightOfGranules.weighedBy || 
-//       // !granulationYield.theoreticalYield
-//     ) {
-//       alert('Please fill out all required fields before proceeding.');
-//       return;
-//     }
-
-//     // Ensure record has the expected structure
-//     console.log("Record data to be sent:", record); // Check the record data
-
-//     try {
-//       const response = await fetch("http://localhost:5000/api/mixing", {
-//         method: "POST",
-//         headers: {
-//           "Content-Type": "application/json",
-//         },
-//         body: JSON.stringify({ ...record }),
-//       });
-
-//       // Check if the response is successful
-//       if (!response.ok) {
-//         throw new Error(`HTTP error! Status: ${response.status}`);
-//       }
-
-//       const data = await response.json();
-//       console.log("Batch created:", data);
-
-//       // Ensure the data contains a valid `_id` field
-//       if (data && data._id) {
-//         localStorage.setItem('batchId', data._id);
-//         console.log('Batch ID stored in localStorage:', data._id);
-//       } else {
-//         console.error('No batch ID returned from API:', data);
-//       }
-
-//       const processes = JSON.parse(localStorage.getItem('processes'));
-//       if (processes) {
-//         const currentProcessIndex = processes.indexOf('mixing');
-//         if (currentProcessIndex !== -1 && currentProcessIndex < processes.length - 1) {
-//           const nextProcess = processes[currentProcessIndex + 1];
-//           navigate(`/${nextProcess}`);
-//         } else {
-//           console.log("No next process available.");
-//         }
-//       }
-//     } catch (error) {
-//       console.error("Error creating batch:", error);
-//     }
-//   };
-
-//   const handleBackPage = () => {
-//     navigate(-1);
-//   };
-
-//   return (
-//     <div>
-//             <FormHeader></FormHeader>
-
-//       <BatchManufacturingFormPage4 />
-//       <div className="mt-6">
-//         <BatchManufacturingFormPage5 />
-//       </div>
-
-//       <div className="mt-6">
-//         <BatchManufacturingFormPage6 />
-//       </div>
-
-//       <div className="mt-6">
-//         <BatchManufacturingFormPage7 />
-//       </div>
-
-//       <div className="mt-6">
-//         <BatchManufacturingFormPage8 />
-//       </div>
-      
-//       <div className="mt-6 flex justify-between">
-//         <Button variant="contained" color="primary" onClick={handleBackPage}>Go Back</Button>
-//         <Button variant="contained" color="primary" onClick={handleSubmit}>Save and Next</Button>
-//       </div>
-//     </div>
-//   );
-// }
-
-// export default Mixing;
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { Button, Tabs, Tab, Box } from '@mui/material';
-import { setMixingRecord } from '../../../../store/mixingSlice';
-import BatchManufacturingFormPage4 from './page4';
-import BatchManufacturingFormPage5 from './page5';
-import BatchManufacturingFormPage6 from './page6';
-import BatchManufacturingFormPage7 from './page7';
-import FormHeader from '../../../header/formHeader';
-import BatchManufacturingFormPage8 from './page8';
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { Button, Tabs, Tab, Box } from "@mui/material";
+import { setMixingRecord } from "../../../../store/mixingSlice";
+import BatchManufacturingFormPage4 from "./page4";
+import BatchManufacturingFormPage5 from "./page5";
+import BatchManufacturingFormPage6 from "./page6";
+import BatchManufacturingFormPage7 from "./page7";
+import FormHeader from "../../../header/formHeader";
+import BatchManufacturingFormPage8 from "./page8";
 
 const Mixing = () => {
   const navigate = useNavigate();
@@ -169,12 +16,19 @@ const Mixing = () => {
   const record = useSelector((state) => state.mixing);
 
   // Load saved tabValue from localStorage or default to 0
-  const savedTabValue = JSON.parse(localStorage.getItem('activeTabMixing')) || 0;
+  const savedTabValue =
+    JSON.parse(localStorage.getItem("activeTabMixing")) || 0;
   const [tabValue, setTabValue] = React.useState(savedTabValue); // Control active tab
-  const [tabStatus, setTabStatus] = React.useState([true, false, false, false, false]); // Control which tabs are enabled
+  const [tabStatus, setTabStatus] = React.useState([
+    true,
+    false,
+    false,
+    false,
+    false,
+  ]); // Control which tabs are enabled
 
   useEffect(() => {
-    const storedRecord = JSON.parse(localStorage.getItem('mixingRecord'));
+    const storedRecord = JSON.parse(localStorage.getItem("mixingRecord"));
     if (storedRecord) {
       dispatch(setMixingRecord(storedRecord));
     }
@@ -183,7 +37,7 @@ const Mixing = () => {
   const handleChangeTab = (event, newValue) => {
     if (tabStatus[newValue]) {
       setTabValue(newValue);
-      localStorage.setItem('activeTabMixing', JSON.stringify(newValue)); // Save tabValue to localStorage
+      localStorage.setItem("activeTabMixing", JSON.stringify(newValue)); // Save tabValue to localStorage
     }
   };
 
@@ -206,33 +60,48 @@ const Mixing = () => {
       checkboxes,
       requestForAnalysisMixing,
     } = record;
-  
+
     switch (tabValue) {
-      case 0: 
+      case 0:
         if (
-          !precautions.sop1 || 
-          !precautions.sop2 || 
-          !precautions.section || 
-          !precautions.specificArea || 
-          !precautions.precautionsRead || 
-          !lineClearance.every(line => line.equipment && line.equipmentId && line.previousProduct && line.batchNo && line.cleanedBy && line.checkedBy && line.verifiedBy && line.equipmentCapacity && line.clDate && line.chDate && line.vDate )
+          !precautions.sop1 ||
+          !precautions.sop2 ||
+          !precautions.section ||
+          !precautions.specificArea ||
+          !precautions.precautionsRead ||
+          !lineClearance.every(
+            (line) =>
+              line.equipment &&
+              line.equipmentId &&
+              line.previousProduct &&
+              line.batchNo &&
+              line.cleanedBy &&
+              line.checkedBy &&
+              line.verifiedBy &&
+              line.equipmentCapacity &&
+              line.clDate &&
+              line.chDate &&
+              line.vDate
+          )
         ) {
-          alert('Please fill out all required fields on this page before proceeding.');
+          alert(
+            "Please fill out all required fields on this page before proceeding."
+          );
           return false;
         }
         break;
-  
-      case 1: 
+
+      case 1:
         if (
-          !batchRecord.department || 
-          !batchRecord.currentProduct || 
-          !batchRecord.currentProductBatchNo || 
-          !batchRecord.lineClearance || 
-          !batchRecord.section || 
-          !batchRecord.date || 
-          !batchRecord.previousProduct || 
-          !batchRecord.previousProductBatchNo || 
-          !batchRecord.signature || 
+          !batchRecord.department ||
+          !batchRecord.currentProduct ||
+          !batchRecord.currentProductBatchNo ||
+          !batchRecord.lineClearance ||
+          !batchRecord.section ||
+          !batchRecord.date ||
+          !batchRecord.previousProduct ||
+          !batchRecord.previousProductBatchNo ||
+          !batchRecord.signature ||
           !checkboxes.documents ||
           !checkboxes.rawMaterial ||
           !checkboxes.remnantOfPreviousProduct ||
@@ -241,82 +110,101 @@ const Mixing = () => {
           !checkboxes.otherEquipments ||
           !checkboxes.scoops ||
           !checkboxes.pallets ||
-          !tempAndHumidity.temperature || 
-          !tempAndHumidity.humidity || 
-          !mixingRemarks || 
-          !authorization.authorizedForUse || 
+          !tempAndHumidity.temperature ||
+          !tempAndHumidity.humidity ||
+          !mixingRemarks ||
+          !authorization.authorizedForUse ||
           !authorization.dateAndTime
         ) {
-          alert('Please fill out all required fields on this page before proceeding.');
+          alert(
+            "Please fill out all required fields on this page before proceeding."
+          );
           return false;
         }
         break;
-  
-        case 2: // Combined case for coating solution preparation and coating procedure
+
+      case 2: // Combined case for coating solution preparation and coating procedure
         if (
-          !manufacturingRecord.every(prep => prep.performedByOperator && prep.checkedByPO && prep.checkedByQAI && prep.pboDate && prep.checkedByPODate && prep.checkedByQAIDate) || 
-          !manufacturingRecord[0].sievingStartedAt || 
-          !manufacturingRecord[0].sievingCompletedOn || 
-          !manufacturingRecord[1].mixingStartedAt || 
-          !manufacturingRecord[1].mixingCompletedOn || 
+          !manufacturingRecord.every(
+            (prep) =>
+              prep.performedByOperator &&
+              prep.checkedByPO &&
+              prep.checkedByQAI &&
+              prep.pboDate &&
+              prep.checkedByPODate &&
+              prep.checkedByQAIDate
+          ) ||
+          !manufacturingRecord[0].sievingStartedAt ||
+          !manufacturingRecord[0].sievingCompletedOn ||
+          !manufacturingRecord[1].mixingStartedAt ||
+          !manufacturingRecord[1].mixingCompletedOn ||
           !manufacturingRecord[2].sampleTakenQty
         ) {
-          alert('Please fill fields on this page before proceeding.');
+          alert("Please fill fields on this page before proceeding.");
           return false;
         }
         break;
-    
-  
+
       case 3: // Combined case for weight of coated tablets and batch manufacturing yield
         if (
-          !weightOfGranules?.containers.every(container => container.grossWeight && container.tareWeight && container.netWeight) || 
-          !weightOfGranules?.total?.grossWeight || 
-          !weightOfGranules?.total?.tareWeight || 
-          !weightOfGranules?.total?.netWeight || 
-          !weightOfGranules?.weighedBy || 
+          !weightOfGranules?.containers.every(
+            (container) =>
+              container.grossWeight &&
+              container.tareWeight &&
+              container.netWeight
+          ) ||
+          !weightOfGranules?.total?.grossWeight ||
+          !weightOfGranules?.total?.tareWeight ||
+          !weightOfGranules?.total?.netWeight ||
+          !weightOfGranules?.weighedBy ||
           !weightOfGranules?.receivedBy ||
-          !granulationYield.labels.every(label => label.description && label.weight) || 
+          !granulationYield.labels.every(
+            (label) => label.description && label.weight
+          ) ||
           !granulationYield.performedBy ||
           !granulationYield.pbDate
-
         ) {
-          alert('Please fill out all required fields on this page before proceeding.');
+          alert(
+            "Please fill out all required fields on this page before proceeding."
+          );
           return false;
         }
         break;
-  
-      case 4: 
+
+      case 4:
         if (
-          !requestForAnalysisMixing.batchInfo.product || 
-          !requestForAnalysisMixing.batchInfo.qcNumber || 
-          !requestForAnalysisMixing.batchInfo.section || 
-          !requestForAnalysisMixing.batchInfo.stage || 
-          !requestForAnalysisMixing.batchInfo.batchNumber || 
-          !requestForAnalysisMixing.batchInfo.mfgDate || 
-          !requestForAnalysisMixing.batchInfo.expDate || 
-          !requestForAnalysisMixing.batchInfo.date || 
-          !requestForAnalysisMixing.batchInfo.time || 
-          !requestForAnalysisMixing.batchInfo.packSize || 
-          !requestForAnalysisMixing.batchInfo.sampleQuantity || 
-          !requestForAnalysisMixing.batchInfo.weightPerUnit || 
-          !requestForAnalysisMixing.batchInfo.bSize || 
-          !requestForAnalysisMixing.qa.sampleType || 
-          !requestForAnalysisMixing.qa.releaseRequiredFor || 
-          !requestForAnalysisMixing.qa.collectedBy || 
-          !requestForAnalysisMixing.qa.dateCollected || 
-          !requestForAnalysisMixing.qa.collectedBy || 
-          !requestForAnalysisMixing.qa.quantityOfSample || 
-          !requestForAnalysisMixing.qa.containerNumbers || 
-          !requestForAnalysisMixing.qaObservations.every(obs => obs.parameter && obs.statusMixing  && obs.remarks) || 
-          !requestForAnalysisMixing.qaOfficer || 
+          !requestForAnalysisMixing.batchInfo.product ||
+          !requestForAnalysisMixing.batchInfo.qcNumber ||
+          !requestForAnalysisMixing.batchInfo.section ||
+          !requestForAnalysisMixing.batchInfo.stage ||
+          !requestForAnalysisMixing.batchInfo.batchNumber ||
+          !requestForAnalysisMixing.batchInfo.mfgDate ||
+          !requestForAnalysisMixing.batchInfo.expDate ||
+          !requestForAnalysisMixing.batchInfo.date ||
+          !requestForAnalysisMixing.batchInfo.time ||
+          !requestForAnalysisMixing.batchInfo.packSize ||
+          !requestForAnalysisMixing.batchInfo.sampleQuantity ||
+          !requestForAnalysisMixing.batchInfo.weightPerUnit ||
+          !requestForAnalysisMixing.batchInfo.bSize ||
+          !requestForAnalysisMixing.qa.sampleType ||
+          !requestForAnalysisMixing.qa.releaseRequiredFor ||
+          !requestForAnalysisMixing.qa.collectedBy ||
+          !requestForAnalysisMixing.qa.dateCollected ||
+          !requestForAnalysisMixing.qa.collectedBy ||
+          !requestForAnalysisMixing.qa.quantityOfSample ||
+          !requestForAnalysisMixing.qa.containerNumbers ||
+          !requestForAnalysisMixing.qaObservations.every(
+            (obs) => obs.parameter && obs.statusMixing && obs.remarks
+          ) ||
+          !requestForAnalysisMixing.qaOfficer ||
           !requestForAnalysisMixing.qaManager
         ) {
-          alert('Pleaserequired fields on this page before proceeding.');
+          alert("Pleaserequired fields on this page before proceeding.");
           return false;
         }
         break;
     }
-  
+
     return true; // All validations passed
   };
 
@@ -330,14 +218,16 @@ const Mixing = () => {
         updatedStatus[newTabValue] = true; // Enable the next tab
         return updatedStatus;
       });
-      localStorage.setItem('activeTabMixing', JSON.stringify(newTabValue)); // Save the updated tabValue
+      localStorage.setItem("activeTabMixing", JSON.stringify(newTabValue)); // Save the updated tabValue
     }
   };
 
   const handleBackTab = () => {
     setTabValue((prevTabValue) => Math.max(prevTabValue - 1, 0));
-    localStorage.setItem('activeTabMixing', JSON.stringify(Math.max(tabValue - 1, 0))); // Save the updated tabValue
-
+    localStorage.setItem(
+      "activeTabMixing",
+      JSON.stringify(Math.max(tabValue - 1, 0))
+    ); // Save the updated tabValue
   };
 
   const handleSubmit = async (e) => {
@@ -364,16 +254,21 @@ const Mixing = () => {
       console.log("Batch created:", data);
 
       if (data && data._id) {
-        localStorage.setItem('mixingId', data._id);
-        console.log('MixingID stored in localStorage:', data._id);
+        localStorage.setItem("mixingId", data._id);
+        console.log("MixingID stored in localStorage:", data._id);
       }
 
-      const processes = JSON.parse(localStorage.getItem('processes'));
+      const processes = JSON.parse(localStorage.getItem("processes"));
       if (processes) {
-        const currentProcessIndex = processes.indexOf('mixing');
-        if (currentProcessIndex !== -1 && currentProcessIndex < processes.length - 1) {
+        const currentProcessIndex = processes.indexOf("mixing");
+        if (
+          currentProcessIndex !== -1 &&
+          currentProcessIndex < processes.length - 1
+        ) {
           const nextProcess = processes[currentProcessIndex + 1];
-        localStorage.removeItem('activeTabMixing');
+          localStorage.removeItem("activeTabMixing");
+          localStorage.removeItem("mixingRecord");
+
           navigate(`/${nextProcess}`);
         } else {
           console.log("No next process available.");
@@ -389,12 +284,19 @@ const Mixing = () => {
       <FormHeader />
       <h1 className="text-center mt-4">Mixing</h1>
 
-      <Box sx={{ width: '100%', borderBottom: 1, borderColor: 'divider' }}>
-        <Tabs value={tabValue} onChange={handleChangeTab} aria-label="mixing tabs">
+      <Box sx={{ width: "100%", borderBottom: 1, borderColor: "divider" }}>
+        <Tabs
+          value={tabValue}
+          onChange={handleChangeTab}
+          aria-label="mixing tabs"
+        >
           <Tab label="Precautions" disabled={!tabStatus[0]} />
           <Tab label="Line Clearance" disabled={!tabStatus[1]} />
           <Tab label="Manufacturing Process" disabled={!tabStatus[2]} />
-          <Tab label="Weight of granules/bulk & Yield" disabled={!tabStatus[3]} />
+          <Tab
+            label="Weight of granules/bulk & Yield"
+            disabled={!tabStatus[3]}
+          />
           <Tab label="Request for analysis" disabled={!tabStatus[4]} />
         </Tabs>
       </Box>
@@ -442,15 +344,28 @@ const Mixing = () => {
         )}
       </div>
 
-      <div className="mt-6" style={{ display: 'flex', justifyContent: 'space-between' }}>
+      <div
+        className="mt-6"
+        style={{ display: "flex", justifyContent: "space-between" }}
+      >
         {tabValue > 0 && (
-          <Button variant="contained" color="primary" onClick={handleBackTab} className='mt-4'>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleBackTab}
+            className="mt-4"
+          >
             Back
           </Button>
         )}
 
         {tabValue < 4 && (
-          <Button variant="contained" color="primary" onClick={handleNextTab} className='mt-4'>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleNextTab}
+            className="mt-4"
+          >
             Next
           </Button>
         )}

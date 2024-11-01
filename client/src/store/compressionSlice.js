@@ -17,21 +17,21 @@ const initialState = {
     previousProduct: "",
     batchNo: "",
     cleanedBy: "",
-    clDate: '',
+    clDate: "",
     checkedBy: "",
-    chDate: '',
+    chDate: "",
     verifiedBy: "",
-    vDate: '',
+    vDate: "",
   }),
-  batchInfo: {
-    productName: "",
-    batchNo: "",
-    batchSize: "",
-    noOfPacks: "",
-    noOfTablets: "",
-    packsSize: "",
-    expiryDate: "",
-  },
+  // batchInfo: {
+  //   productName: "",
+  //   batchNo: "",
+  //   batchSize: "",
+  //   noOfPacks: "",
+  //   noOfTablets: "",
+  //   packsSize: "",
+  //   expiryDate: "",
+  // },
   batchRecord: {
     department: "",
     currentProduct: "",
@@ -80,8 +80,8 @@ const initialState = {
         pboDate: "",
         checkedByPODate: "",
         checkedByQAIDate: "",
-      }
-    ]
+      },
+    ],
   },
   compressionSpecifications: {
     parameters: [
@@ -93,27 +93,27 @@ const initialState = {
     ],
     checkedByQA: "",
     checkedByQADate: "",
-
   },
-  // 
+  //
   followUp: {
-    labels: Array(10).fill().map(() => ({
-      date: "",
-      time: "",
-      avgWeight: "",
-      thickness: "",
-      hardness: "",
-      disintigrationTime: "",
-      friability: "",
-      performedBy: "",
-    })),
+    labels: Array(10)
+      .fill()
+      .map(() => ({
+        date: "",
+        time: "",
+        avgWeight: "",
+        thickness: "",
+        hardness: "",
+        disintigrationTime: "",
+        friability: "",
+        performedBy: "",
+      })),
     zP: false,
     others: false,
     checkedByQA: "",
     checkedByQADate: "",
-
   },
-  
+
   requestForAnalysis: {
     batchInfo: {
       product: "",
@@ -148,15 +148,17 @@ const initialState = {
     qaManager: "",
   },
   checkSheet: {
-    labels: Array(10).fill().map(() => ({
-      dateAndTime: "",
-      weights: Array(10).fill(""),
-      avgWeightOf10Tabs: "",
-      temp: "",
-      rH: "",
-      disintigrationTime: "",
-      PoOrQoa: "",
-    })),
+    labels: Array(10)
+      .fill()
+      .map(() => ({
+        dateAndTime: "",
+        weights: Array(10).fill(""),
+        avgWeightOf10Tabs: "",
+        temp: "",
+        rH: "",
+        disintigrationTime: "",
+        PoOrQoa: "",
+      })),
     upperLimit: "",
     targetWeight: "",
     lowerLimit: "",
@@ -180,16 +182,13 @@ const initialState = {
     receivedBy: "",
   },
   compressionYield: {
-    labels: Array(5).fill(
-      {
-        sNo: '',
-        description: '',
-        yield: '',
-      },
-    ),
-    performedBy: '',
-    performedByDate: '',
-
+    labels: Array(5).fill({
+      sNo: "",
+      description: "",
+      yield: "",
+    }),
+    performedBy: "",
+    performedByDate: "",
   },
   requestForAnalysisEnd: {
     batchInfo: {
@@ -231,7 +230,10 @@ export const compressionSlice = createSlice({
   initialState,
   reducers: {
     setCompressionRecord: (state, action) => {
-      console.log("Dispatching setCompressionRecord with payload:", action.payload);
+      console.log(
+        "Dispatching setCompressionRecord with payload:",
+        action.payload
+      );
       const {
         precautions,
         lineClearance,
@@ -261,7 +263,10 @@ export const compressionSlice = createSlice({
       state.compressionRemarks = compressionRemarks;
       state.authorization = { ...state.authorization, ...authorization };
       // state.compressionRecord = action.payload.compressionRecord || state.compressionRecord;
-      state.compressionRecord = {...state.compressionRecord, ...compressionRecord};
+      state.compressionRecord = {
+        ...state.compressionRecord,
+        ...compressionRecord,
+      };
 
       state.compressionSpecifications = {
         ...state.compressionSpecifications,
@@ -277,8 +282,14 @@ export const compressionSlice = createSlice({
         ...requestForAnalysisEnd,
       };
       state.checkSheet = { ...state.checkSheet, ...checkSheet };
-      state.weightOfCompressedTablets = {...state.weightOfCompressedTablets, ...weightOfCompressedTablets};
-      state.compressionYield = { ...state.compressionYield, ...compressionYield};
+      state.weightOfCompressedTablets = {
+        ...state.weightOfCompressedTablets,
+        ...weightOfCompressedTablets,
+      };
+      state.compressionYield = {
+        ...state.compressionYield,
+        ...compressionYield,
+      };
 
       // Save to local storage
       localStorage.setItem("compressionRecord", JSON.stringify(state));
@@ -289,8 +300,13 @@ export const compressionSlice = createSlice({
       return initialState;
     },
     loadCompressionRecordFromStorage: (state) => {
-      const compressionRecord = JSON.parse(localStorage.getItem("compressionRecord"));
-      console.log("Loaded compression record from local storage:", compressionRecord);
+      const compressionRecord = JSON.parse(
+        localStorage.getItem("compressionRecord")
+      );
+      console.log(
+        "Loaded compression record from local storage:",
+        compressionRecord
+      );
       if (compressionRecord) {
         // Update state with the loaded record
         Object.assign(state, compressionRecord);

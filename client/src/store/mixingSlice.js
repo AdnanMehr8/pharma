@@ -14,21 +14,21 @@ const initialState = {
     previousProduct: "",
     batchNo: "",
     cleanedBy: "",
-    clDate: '',
+    clDate: "",
     checkedBy: "",
-    chDate: '',
+    chDate: "",
     verifiedBy: "",
-    vDate: '',
+    vDate: "",
   }),
-  batchInfo: {
-    productName: "",
-    batchNo: "",
-    batchSize: "",
-    noOfPacks: "",
-    noOfTablets: "",
-    packsSize: "",
-    expiryDate: "",
-  },
+  // batchInfo: {
+  //   productName: "",
+  //   batchNo: "",
+  //   batchSize: "",
+  //   noOfPacks: "",
+  //   noOfTablets: "",
+  //   packsSize: "",
+  //   expiryDate: "",
+  // },
   batchRecord: {
     department: "",
     currentProduct: "",
@@ -109,15 +109,13 @@ const initialState = {
     receivedBy: "",
   },
   granulationYield: {
-    labels: Array(6).fill(
-      {
-        sNo: '',
-        description: '',
-        weight: '',
-      },
-    ),
-    performedBy: '',
-    pbDate: '',
+    labels: Array(6).fill({
+      sNo: "",
+      description: "",
+      weight: "",
+    }),
+    performedBy: "",
+    pbDate: "",
   },
   requestForAnalysisMixing: {
     batchInfo: {
@@ -153,7 +151,6 @@ const initialState = {
     qaOfficer: "",
     qaManager: "",
   },
-  
 };
 
 export const mixingSlice = createSlice({

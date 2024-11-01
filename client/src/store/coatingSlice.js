@@ -17,21 +17,21 @@ const initialState = {
     previousProduct: "",
     batchNo: "",
     cleanedBy: "",
-    clDate: '',
+    clDate: "",
     checkedBy: "",
-    chDate: '',
+    chDate: "",
     verifiedBy: "",
-    vDate: '',
+    vDate: "",
   }),
-  batchInfo: {
-    productName: "",
-    batchNo: "",
-    batchSize: "",
-    noOfPacks: "",
-    noOfTablets: "",
-    packsSize: "",
-    expiryDate: "",
-  },
+  // batchInfo: {
+  //   productName: "",
+  //   batchNo: "",
+  //   batchSize: "",
+  //   noOfPacks: "",
+  //   noOfTablets: "",
+  //   packsSize: "",
+  //   expiryDate: "",
+  // },
   batchRecord: {
     department: "",
     currentProduct: "",
@@ -62,20 +62,24 @@ const initialState = {
     authorizedForUse: "",
     dateAndTime: "",
   },
-  coatingSolutionPreparation: [{
-    instructions: "In solution preparation Vessel dissolve the following materials and mix under Silverson Mixer for 30 mints.",
-    activityCompliance: "",
-    sampleTakenQty: "",
-    performedByOperator: "",
-    checkedByPO: "",
-    checkedByQAI: "",
-    pboDate: "",
-    checkedByPODate: "",
-    checkedByQAIDate: "",
-  }],
-  coatingProcedure:
-    [{
-      instructions: "Bring the container of compressed tablets and transfer the bulk tablets into coating pan. Lift the bulk tablets container and insert it into coating pan. Emptying all containers into coating pan. Transfer all the core tablets into coating pan.",
+  coatingSolutionPreparation: [
+    {
+      instructions:
+        "In solution preparation Vessel dissolve the following materials and mix under Silverson Mixer for 30 mints.",
+      activityCompliance: "",
+      sampleTakenQty: "",
+      performedByOperator: "",
+      checkedByPO: "",
+      checkedByQAI: "",
+      pboDate: "",
+      checkedByPODate: "",
+      checkedByQAIDate: "",
+    },
+  ],
+  coatingProcedure: [
+    {
+      instructions:
+        "Bring the container of compressed tablets and transfer the bulk tablets into coating pan. Lift the bulk tablets container and insert it into coating pan. Emptying all containers into coating pan. Transfer all the core tablets into coating pan.",
       activityCompliance: "",
       sampleTakenQty: "",
       performedByOperator: "",
@@ -86,7 +90,8 @@ const initialState = {
       checkedByQAIDate: "",
     },
     {
-      instructions: "Pre warm the core tablets with jogging for 10 minutes at 75 C before film coating. Then start coating as per above mentioned parameters",
+      instructions:
+        "Pre warm the core tablets with jogging for 10 minutes at 75 C before film coating. Then start coating as per above mentioned parameters",
       activityCompliance: "",
       sampleTakenQty: "",
       performedByOperator: "",
@@ -95,7 +100,8 @@ const initialState = {
       pboDate: "",
       checkedByPODate: "",
       checkedByQAIDate: "",
-    },{
+    },
+    {
       instructions: "After coating, cool the tablets for 20 minutes. ",
       activityCompliance: "",
       sampleTakenQty: "",
@@ -105,20 +111,20 @@ const initialState = {
       pboDate: "",
       checkedByPODate: "",
       checkedByQAIDate: "",
-      },
-      {
-        instructions: "Collect tablets in cleaned, tarred, polythene lined labeled drums. Send test request to Quality Control for physical & chemical analysis. Raise the intimation to QA for sampling and getting the sample tested by QC physically and chemically. Sample taken Qty: ",
-        activityCompliance: "",
-        sampleTakenQty: "",
-        performedByOperator: "",
-        checkedByPO: "",
-        checkedByQAI: "",
-        pboDate: "",
-        checkedByPODate: "",
-        checkedByQAIDate: "",
-      }
-    ],
-  
+    },
+    {
+      instructions:
+        "Collect tablets in cleaned, tarred, polythene lined labeled drums. Send test request to Quality Control for physical & chemical analysis. Raise the intimation to QA for sampling and getting the sample tested by QC physically and chemically. Sample taken Qty: ",
+      activityCompliance: "",
+      sampleTakenQty: "",
+      performedByOperator: "",
+      checkedByPO: "",
+      checkedByQAI: "",
+      pboDate: "",
+      checkedByPODate: "",
+      checkedByQAIDate: "",
+    },
+  ],
 
   requestForAnalysis: {
     batchInfo: {
@@ -169,16 +175,13 @@ const initialState = {
     receivedBy: "",
   },
   batchManufacturingYield: {
-    labels: Array(5).fill(
-      {
-        sNo: '',
-        description: '',
-        yield: '',
-      },
-    ),
-    performedBy: '',
-    performedByDate: '',
-
+    labels: Array(5).fill({
+      sNo: "",
+      description: "",
+      yield: "",
+    }),
+    performedBy: "",
+    performedByDate: "",
   },
 };
 
@@ -207,7 +210,7 @@ export const coatingSlice = createSlice({
         coatingSolutionPreparation,
         coatingProcedure,
         weightOfCoatedTablets,
-        batchManufacturingYield
+        batchManufacturingYield,
       } = action.payload;
 
       state.precautions = { ...state.precautions, ...precautions };
@@ -223,11 +226,14 @@ export const coatingSlice = createSlice({
 
       // state.compressionRecord = action.payload.compressionRecord || state.compressionRecord;
       // state.coatingProcedure = coatingProcedure;
-      state.coatingProcedure = action.payload.coatingProcedure || state.coatingProcedure;
+      state.coatingProcedure =
+        action.payload.coatingProcedure || state.coatingProcedure;
       // state.coatingSolutionPreparation = { ...state.coatingSolutionPreparation, ...coatingSolutionPreparation };
       // state.coatingProcedure = {...state.coatingProcedure, ...coatingProcedure};
-      state.coatingSolutionPreparation = action.payload.coatingSolutionPreparation || state.coatingSolutionPreparation;
-    
+      state.coatingSolutionPreparation =
+        action.payload.coatingSolutionPreparation ||
+        state.coatingSolutionPreparation;
+
       state.compressionSpecifications = {
         ...state.compressionSpecifications,
         ...compressionSpecifications,
@@ -238,8 +244,14 @@ export const coatingSlice = createSlice({
         ...requestForAnalysis,
       };
       state.checkSheet = { ...state.checkSheet, ...checkSheet };
-      state.weightOfCoatedTablets = {...state.weightOfCoatedTablets, ...weightOfCoatedTablets};
-      state.batchManufacturingYield = { ...state.batchManufacturingYield, ...batchManufacturingYield};
+      state.weightOfCoatedTablets = {
+        ...state.weightOfCoatedTablets,
+        ...weightOfCoatedTablets,
+      };
+      state.batchManufacturingYield = {
+        ...state.batchManufacturingYield,
+        ...batchManufacturingYield,
+      };
       // state.weightOfCoatedTablets = weightOfCoatedTablets;
 
       // Save to local storage
@@ -252,7 +264,10 @@ export const coatingSlice = createSlice({
     },
     loadCoatingRecordFromStorage: (state) => {
       const coatingRecord = JSON.parse(localStorage.getItem("coatingRecord"));
-      console.log("Loaded compression record from local storage:", coatingRecord);
+      console.log(
+        "Loaded compression record from local storage:",
+        coatingRecord
+      );
       if (coatingRecord) {
         // Update state with the loaded record
         Object.assign(state, coatingRecord);
