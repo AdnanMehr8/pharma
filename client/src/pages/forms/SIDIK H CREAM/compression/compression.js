@@ -176,7 +176,7 @@ const CompressionCream = () => {
 
       case 4:
         if (
-          // Check for sccompressionYield
+          // Check for sccompressionYieldd
           !compressionYield.labels.every(
             (label) => label.description && label.yield
           ) ||
