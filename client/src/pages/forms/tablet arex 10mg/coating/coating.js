@@ -15,6 +15,7 @@ const Coating = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const record = useSelector((state) => state.coating);
+  const REACT_APP_INTERNAL_API_PATH = process.env.REACT_APP_INTERNAL_API_PATH;
 
   // Load saved tabValue from localStorage or default to 0
   const savedTabValue =
@@ -254,7 +255,7 @@ const Coating = () => {
     console.log("Record data to be sent:", record);
 
     try {
-      const response = await fetch("http://localhost:5000/api/coating", {
+      const response = await fetch(`${REACT_APP_INTERNAL_API_PATH}/api/coating`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

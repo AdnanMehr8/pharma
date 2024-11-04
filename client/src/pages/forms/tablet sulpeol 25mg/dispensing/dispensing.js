@@ -13,6 +13,7 @@ const DispensingSulpeol = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const sdispensing = useSelector((state) => state.sdispensing);
+  const REACT_APP_INTERNAL_API_PATH = process.env.REACT_APP_INTERNAL_API_PATH;
 
   // Load saved tabValue from localStorage or default to 0
   const savedTabValue =
@@ -155,7 +156,7 @@ const DispensingSulpeol = () => {
     }
 
     try {
-      const response = await fetch("http://localhost:5000/api/dispensing", {
+      const response = await fetch(`${REACT_APP_INTERNAL_API_PATH}/api/dispensing`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

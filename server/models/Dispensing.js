@@ -67,6 +67,7 @@ const BatchSchema = new mongoose.Schema({
       pallets: { type: String, default: 'notApplicable' },
       machineUsed: String,
     },
+    labels: {},
     tempAndHumidity: {
       temperature: String,
       humidity: String,

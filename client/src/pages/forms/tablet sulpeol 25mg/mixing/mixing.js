@@ -15,6 +15,7 @@ const MixingSulpeol = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const record = useSelector((state) => state.smixing);
+  const REACT_APP_INTERNAL_API_PATH = process.env.REACT_APP_INTERNAL_API_PATH;
 
   // Load saved tabValue from localStorage or default to 0
   const savedTabValue =
@@ -239,7 +240,7 @@ const MixingSulpeol = () => {
     }
 
     try {
-      const response = await fetch("http://localhost:5000/api/mixing", {
+      const response = await fetch(`${REACT_APP_INTERNAL_API_PATH}/api/mixing`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

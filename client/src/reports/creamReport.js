@@ -55,11 +55,12 @@ const ReportCream = () => {
   const dispensingId = localStorage.getItem("sc-dispensingId");
   const mixingId = localStorage.getItem("sc-mixingId");
   const compressionID = localStorage.getItem("sc-compressionID");
+  const REACT_APP_INTERNAL_API_PATH = process.env.REACT_APP_INTERNAL_API_PATH;
 
   const fetchLatestRecordBatchInfo = async (batchInfoId) => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/batch-info/${batchInfoId}`
+        `${REACT_APP_INTERNAL_API_PATH}/api/batch-info/${batchInfoId}`
       );
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
@@ -74,7 +75,7 @@ const ReportCream = () => {
   const fetchLatestRecordDispensing = async (dispensingId) => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/dispensing/${dispensingId}`
+        `${REACT_APP_INTERNAL_API_PATH}/api/dispensing/${dispensingId}`
       );
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
@@ -89,7 +90,7 @@ const ReportCream = () => {
   const fetchLatestRecordMixing = async (mixingId) => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/mixing/${mixingId}`
+        `${REACT_APP_INTERNAL_API_PATH}/api/mixing/${mixingId}`
       );
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
@@ -104,7 +105,7 @@ const ReportCream = () => {
   const fetchLatestRecordCompression = async (compressionID) => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/compression/${compressionID}`
+        `${REACT_APP_INTERNAL_API_PATH}/api/compression/${compressionID}`
       );
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);

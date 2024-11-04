@@ -19,6 +19,7 @@ const Compression = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const record = useSelector((state) => state.compression);
+  const REACT_APP_INTERNAL_API_PATH = process.env.REACT_APP_INTERNAL_API_PATH;
 
   // Load saved tabValue from localStorage or default to 0
   const savedTabValue =
@@ -352,7 +353,7 @@ const Compression = () => {
     }
 
     try {
-      const response = await fetch("http://localhost:5000/api/compression", {
+      const response = await fetch(`${REACT_APP_INTERNAL_API_PATH}/api/compression`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
