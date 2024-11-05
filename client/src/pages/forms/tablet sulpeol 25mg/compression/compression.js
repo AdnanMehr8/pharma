@@ -112,17 +112,10 @@ const CompressionSulpeol = () => {
           !batchRecord.previousProduct ||
           !batchRecord.previousProductBatchNo ||
           !batchRecord.signature ||
-          !checkboxes.pallets ||
-          !checkboxes.documents ||
-          !checkboxes.powderOrTabletOfPreviousBatch ||
-          !checkboxes.remnantOfPreviousProduct ||
-          !checkboxes.area ||
-          !checkboxes.compressionMachine ||
-          !checkboxes.containerOrDrums ||
-          !checkboxes.scoops ||
+          !checkboxes ||
           !tempAndHumidity.temperature ||
           !tempAndHumidity.humidity ||
-          !compressionRemarks ||
+          !tempAndHumidity.compressionRemarks ||
           !authorization.authorizedForUse ||
           !authorization.dateAndTime
         ) {

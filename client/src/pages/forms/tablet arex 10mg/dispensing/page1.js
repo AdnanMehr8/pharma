@@ -38,9 +38,7 @@ const BatchManufacturingFormPage1 = () => {
           tempAndHumidity: { ...dispensing.tempAndHumidity, [name]: value },
         })
       );
-    } else if (name === "remarks") {
-      dispatch(setDispensing({ ...dispensing, remarks: value }));
-    }
+    } 
   };
 
  
@@ -148,7 +146,8 @@ const BatchManufacturingFormPage1 = () => {
                 row
                 value={dispensing.checkboxes[section]?.values?.[label] || ""}
                 onChange={(e) => handleCheckboxChange(section, label, e.target.value)}
-                className="justify-center"
+                // className="justify-center"
+                style={{ justifyContent: "center" }}
               >
                 <FormControlLabel
                   value="satisfactory"
@@ -350,7 +349,7 @@ const BatchManufacturingFormPage1 = () => {
                   fullWidth
                   multiline
                   name="remarks"
-                  value={dispensing.remarks || ""}
+                  value={dispensing.tempAndHumidity.remarks || ""}
                   onChange={handleInputChange}
                 />
               </td>

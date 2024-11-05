@@ -105,17 +105,10 @@ const CompressionCream = () => {
           !batchRecord.previousProduct ||
           !batchRecord.previousProductBatchNo ||
           !batchRecord.signature ||
-          !checkboxes.pallets ||
-          !checkboxes.documents ||
-          !checkboxes.tubesOrBottles ||
-          !checkboxes.remnantOfPreviousProduct ||
-          !checkboxes.area ||
-          !checkboxes.fullingMachine ||
-          !checkboxes.containers ||
-          !checkboxes.jugs ||
+          !checkboxes ||
           !tempAndHumidity.temperature ||
           !tempAndHumidity.humidity ||
-          !compressionRemarks ||
+          !tempAndHumidity.compressionRemarks ||
           !authorization.authorizedForUse ||
           !authorization.dateAndTime
         ) {

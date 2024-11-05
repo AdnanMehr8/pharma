@@ -105,17 +105,10 @@ const Coating = () => {
           !batchRecord.previousProduct ||
           !batchRecord.previousProductBatchNo ||
           !batchRecord.signature ||
-          !checkboxes.documents ||
-          !checkboxes.tabletsCoatingMaterial ||
-          !checkboxes.remnantOfPreviousProduct ||
-          !checkboxes.area ||
-          !checkboxes.coatingMachine ||
-          !checkboxes.containerOrDrums ||
-          !checkboxes.scoops ||
-          !checkboxes.pallets ||
+          !checkboxes ||
           !tempAndHumidity.temperature ||
           !tempAndHumidity.humidity ||
-          !coatingRemarks ||
+          !tempAndHumidity.coatingRemarks ||
           !authorization.authorizedForUse ||
           !authorization.dateAndTime
         ) {
@@ -284,7 +277,6 @@ const Coating = () => {
         ) {
           const nextProcess = processes[currentProcessIndex + 1];
           localStorage.removeItem("activeTabCoating");
-          localStorage.removeItem("coatingRecord");
 
           navigate(`/${nextProcess}`);
         } else {

@@ -56,8 +56,8 @@ const initialState = {
   tempAndHumidity: {
     temperature: "",
     humidity: "",
+    coatingRemarks: "",
   },
-  coatingRemarks: "",
   authorization: {
     authorizedForUse: "",
     dateAndTime: "",

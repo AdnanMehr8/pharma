@@ -103,17 +103,10 @@ const Mixing = () => {
           !batchRecord.previousProduct ||
           !batchRecord.previousProductBatchNo ||
           !batchRecord.signature ||
-          !checkboxes.documents ||
-          !checkboxes.rawMaterial ||
-          !checkboxes.remnantOfPreviousProduct ||
-          !checkboxes.area ||
-          !checkboxes.mixer ||
-          !checkboxes.otherEquipments ||
-          !checkboxes.scoops ||
-          !checkboxes.pallets ||
+          !checkboxes ||
           !tempAndHumidity.temperature ||
           !tempAndHumidity.humidity ||
-          !mixingRemarks ||
+          !tempAndHumidity.mixingRemarks ||
           !authorization.authorizedForUse ||
           !authorization.dateAndTime
         ) {
@@ -268,7 +261,6 @@ const Mixing = () => {
         ) {
           const nextProcess = processes[currentProcessIndex + 1];
           localStorage.removeItem("activeTabMixing");
-          localStorage.removeItem("mixingRecord");
 
           navigate(`/${nextProcess}`);
         } else {

@@ -119,13 +119,36 @@ const ReportCream = () => {
 
 
   useEffect(() => {
-    if (batchInfoId || dispensingId || mixingId || compressionID ) {
-      fetchLatestRecordBatchInfo(batchInfoId);
-      fetchLatestRecordDispensing(dispensingId);
-      fetchLatestRecordMixing(mixingId);
-      fetchLatestRecordCompression(compressionID);
-    }
-  }, [dispensingId, dispatch]);
+    const fetchAndClearStorage = async () => {
+        if (batchInfoId || dispensingId || mixingId || compressionID ) {
+            await fetchLatestRecordBatchInfo(batchInfoId);
+            await fetchLatestRecordDispensing(dispensingId);
+            await fetchLatestRecordMixing(mixingId);
+            await fetchLatestRecordCompression(compressionID);
+
+          // Check if localStorage items exist and remove them
+           if (localStorage.getItem("batchInfo")) {
+            console.log("Removing batchInfo");
+            localStorage.removeItem("batchInfo");
+            }
+            if (localStorage.getItem("sc-dispensing")) {
+                console.log("Removing sc-dispensing");
+                localStorage.removeItem("sc-dispensing");
+            }
+            if (localStorage.getItem("sc-mixingRecord")) {
+                console.log("Removing sc-mixingRecord");
+                localStorage.removeItem("sc-mixingRecord");
+            }
+            if (localStorage.getItem("sc-compressionRecord")) {
+                console.log("Removing sc-compressionRecord");
+                localStorage.removeItem("sc-compressionRecord");
+            }
+        }
+    };
+    
+    fetchAndClearStorage();
+}, [batchInfoId, dispensingId, mixingId, compressionID, dispatch]);
+
 
   const totalPages = 18;
 

@@ -39,9 +39,7 @@ const BatchManufacturingFormPage5 = () => {
           tempAndHumidity: { ...smixing.tempAndHumidity, [name]: value },
         })
       );
-    } else if (name === "mixingRemarks") {
-      dispatch(setsMixingRecord({ ...smixing, mixingRemarks: value }));
-    }
+    } 
   };
 
     const handleCheckboxChange = (section, label, value) => {
@@ -148,7 +146,8 @@ const BatchManufacturingFormPage5 = () => {
                 row
                 value={smixing.checkboxes[section]?.values?.[label] || ""}
                 onChange={(e) => handleCheckboxChange(section, label, e.target.value)}
-                className="justify-center"
+                style={{ justifyContent: "center" }}
+
               >
                 <FormControlLabel
                   value="satisfactory"
@@ -349,7 +348,7 @@ const BatchManufacturingFormPage5 = () => {
                   fullWidth
                   multiline
                   name="mixingRemarks"
-                  value={smixing.mixingRemarks || ""}
+                  value={smixing.tempAndHumidity.mixingRemarks || ""}
                   onChange={handleInputChange}
                 />
               </td>

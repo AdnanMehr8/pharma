@@ -23,9 +23,7 @@ const BatchManufacturingFormPage20 = () => {
             dispatch(setCoatingRecord({ ...coating, authorization: { ...coating.authorization, [name]: value } }));
         } else if (name in coating.tempAndHumidity) {
             dispatch(setCoatingRecord({ ...coating, tempAndHumidity: { ...coating.tempAndHumidity, [name]: value } }));
-        } else if (name === 'coatingRemarks') {
-            dispatch(setCoatingRecord({ ...coating, coatingRemarks: value }));
-        }
+        } 
     };
 
     const handleCheckboxChange = (section, label, value) => {
@@ -132,7 +130,8 @@ const BatchManufacturingFormPage20 = () => {
                     row
                     value={coating.checkboxes[section]?.values?.[label] || ""}
                     onChange={(e) => handleCheckboxChange(section, label, e.target.value)}
-                    className="justify-center"
+                    style={{ justifyContent: "center" }}
+
                   >
                     <FormControlLabel
                       value="satisfactory"
@@ -310,7 +309,7 @@ const BatchManufacturingFormPage20 = () => {
                                     multiline
                                
                                 name="coatingRemarks"
-                                value={coating.coatingRemarks || ''}
+                                value={coating.tempAndHumidity.coatingRemarks || ''}
                                 onChange={handleInputChange}
                                 />
                             </td>

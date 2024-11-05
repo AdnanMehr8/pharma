@@ -56,8 +56,8 @@ const initialState = {
   tempAndHumidity: {
     temperature: "",
     humidity: "",
+    compressionRemarks: "",
   },
-  compressionRemarks: "",
   authorization: {
     authorizedForUse: "",
     dateAndTime: null,

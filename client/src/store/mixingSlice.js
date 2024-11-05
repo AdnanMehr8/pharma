@@ -53,8 +53,8 @@ const initialState = {
   tempAndHumidity: {
     temperature: "",
     humidity: "",
+    mixingRemarks: "",
   },
-  mixingRemarks: "",
   authorization: {
     authorizedForUse: "",
     dateAndTime: null,

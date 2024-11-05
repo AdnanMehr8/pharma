@@ -162,14 +162,40 @@ const Report = () => {
   };
 
   useEffect(() => {
-    if (batchInfoId || dispensingId || mixingId || compressionID || coatingId) {
-      fetchLatestRecordBatchInfo(batchInfoId);
-      fetchLatestRecordDispensing(dispensingId);
-      fetchLatestRecordMixing(mixingId);
-      fetchLatestRecordCompression(compressionID);
-      fetchLatestRecordCoating(coatingId);
-    }
-  }, [dispensingId, dispatch]);
+    const fetchAndClearStorage = async () => {
+        if (batchInfoId || dispensingId || mixingId || compressionID || coatingId) {
+            await fetchLatestRecordBatchInfo(batchInfoId);
+            await fetchLatestRecordDispensing(dispensingId);
+            await fetchLatestRecordMixing(mixingId);
+            await fetchLatestRecordCompression(compressionID);
+            await fetchLatestRecordCoating(coatingId);
+
+            // Check if localStorage items exist and remove them
+            if (localStorage.getItem("batchInfo")) {
+              console.log("Removing batchInfo");
+              localStorage.removeItem("batchInfo");
+              }
+            if (localStorage.getItem("dispensing")) {
+                console.log("Removing dispensing");
+                localStorage.removeItem("dispensing");
+            }
+            if (localStorage.getItem("mixingRecord")) {
+                console.log("Removing mixingRecord");
+                localStorage.removeItem("mixingRecord");
+            }
+            if (localStorage.getItem("compressionRecord")) {
+                console.log("Removing compressionRecord");
+                localStorage.removeItem("compressionRecord");
+            }
+            if (localStorage.getItem("coatingRecord")) {
+                console.log("Removing coatingRecord");
+                localStorage.removeItem("coatingRecord");
+            }
+        }
+    };
+    
+    fetchAndClearStorage();
+}, [batchInfoId, dispensingId, mixingId, compressionID, coatingId, dispatch]);
 
   const totalPages = 23;
 

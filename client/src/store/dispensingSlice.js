@@ -38,8 +38,8 @@ const initialState = {
     temperature: "",
     humidity: "",
     machineUsed: "",
+    remarks: "",
   },
-  remarks: "",
   authorization: {
     authorizedForUse: "",
     dateAndTime: null,

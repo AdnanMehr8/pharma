@@ -65,20 +65,12 @@ const Dispensing = () => {
         !batchRecord.previousProduct ||
         !batchRecord.previousProductBatchNo ||
         !batchRecord.signature ||
-        !checkboxes.cartons ||
-        !checkboxes.documents ||
-        !checkboxes.rawMaterial ||
-        !checkboxes.remnantOfPreviousProduct ||
-        !checkboxes.area ||
-        !checkboxes.weighingBalance ||
-        !checkboxes.dispensingBoard ||
-        !checkboxes.scoops ||
-        !checkboxes.pallets ||
+        !checkboxes ||
         !tempAndHumidity.temperature ||
         !tempAndHumidity.humidity ||
         !authorization.authorizedForUse ||
         !authorization.dateAndTime ||
-        !remarks
+        !tempAndHumidity.remarks
       ) {
         alert(
           "Please fill out all required fields on Page 1 before proceeding."
@@ -223,7 +215,6 @@ const Dispensing = () => {
           const nextProcess = processes[currentProcessIndex + 1];
           // Remove 'activeTabDispensing' from local storage before navigating
           localStorage.removeItem("activeTabDispensing");
-          localStorage.removeItem("dispensing");
           navigate(`/${nextProcess}`);
         } else {
           console.log("No next process available.");

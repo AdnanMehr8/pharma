@@ -103,18 +103,10 @@ const MixingCream = () => {
           !batchRecord.previousProduct ||
           !batchRecord.previousProductBatchNo ||
           !batchRecord.signature ||
-          !checkboxes.documents ||
-          !checkboxes.cartons ||
-          !checkboxes.rawMaterial ||
-          !checkboxes.remnantOfPreviousProduct ||
-          !checkboxes.area ||
-          !checkboxes.creamOrOintmentmixer ||
-          !checkboxes.containers ||
-          !checkboxes.jugs ||
-          !checkboxes.pallets ||
+          !checkboxes ||
           !tempAndHumidity.temperature ||
           !tempAndHumidity.humidity ||
-          !mixingRemarks ||
+          !tempAndHumidity.mixingRemarks ||
           !authorization.authorizedForUse ||
           !authorization.dateAndTime
         ) {

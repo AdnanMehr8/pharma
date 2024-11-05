@@ -24,9 +24,7 @@ const BatchManufacturingFormPage10 = () => {
             dispatch(setsCompressionRecord({ ...scompression, authorization: { ...scompression.authorization, [name]: value } }));
         } else if (name in scompression.tempAndHumidity) {
             dispatch(setsCompressionRecord({ ...scompression, tempAndHumidity: { ...scompression.tempAndHumidity, [name]: value } }));
-        } else if (name === 'compressionRemarks') {
-            dispatch(setsCompressionRecord({ ...scompression, compressionRemarks: value }));
-        }
+        } 
     };
 
     const handleCheckboxChange = (section, label, value) => {
@@ -133,7 +131,8 @@ const BatchManufacturingFormPage10 = () => {
                     row
                     value={scompression.checkboxes[section]?.values?.[label] || ""}
                     onChange={(e) => handleCheckboxChange(section, label, e.target.value)}
-                    className="justify-center"
+                    style={{ justifyContent: "center" }}
+
                   >
                     <FormControlLabel
                       value="satisfactory"
@@ -310,7 +309,7 @@ const BatchManufacturingFormPage10 = () => {
                                     multiline
                                
                                 name="compressionRemarks"
-                                value={scompression.compressionRemarks || ''}
+                                value={scompression.tempAndHumidity.compressionRemarks || ''}
                                 onChange={handleInputChange}
                                 />
                             </td>

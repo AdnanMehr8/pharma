@@ -111,17 +111,10 @@ const Compression = () => {
           !batchRecord.previousProduct ||
           !batchRecord.previousProductBatchNo ||
           !batchRecord.signature ||
-          !checkboxes.pallets ||
-          !checkboxes.cartons ||
-          !checkboxes.powderOrTabletOfPreviousBatch ||
-          !checkboxes.remnantOfPreviousProduct ||
-          !checkboxes.area ||
-          !checkboxes.compressionMachine ||
-          !checkboxes.containerOrDrums ||
-          !checkboxes.scoops ||
+          !checkboxes ||
           !tempAndHumidity.temperature ||
           !tempAndHumidity.humidity ||
-          !compressionRemarks ||
+          !tempAndHumidity.compressionRemarks ||
           !authorization.authorizedForUse ||
           !authorization.dateAndTime
         ) {
@@ -382,7 +375,6 @@ const Compression = () => {
         ) {
           const nextProcess = processes[currentProcessIndex + 1];
           localStorage.removeItem("activeTabCompression");
-          localStorage.removeItem("compressionRecord");
 
           navigate(`/${nextProcess}`);
         } else {
